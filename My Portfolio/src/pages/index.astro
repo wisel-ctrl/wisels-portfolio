@@ -1,0 +1,439 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Wesley Fuentes Bibon | Portfolio">
+  
+  <!-- HOME SECTION - Hero with Profile Picture -->
+  <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
+    <!-- Background Animation -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-20 max-w-7xl">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left Column - Text Content -->
+        <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
+          <div class="space-y-6">
+            <div class="inline-block px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full hover:scale-105 transition-transform">
+              <span class="text-yellow-400 text-lg font-mono"> Hello, I'm</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold">
+              <span class="text-white">Wesley</span>
+              <br />
+              <span class="gold-text">Fuentes Bibon</span>
+            </h1>
+            
+            <div class="font-mono text-gray-400 text-lg border-l-4 border-yellow-500 pl-4">
+              <span class="typing-text">Building the future, one line of code at a time</span>
+            </div>
+            
+            <p class="text-gray-300 text-lg leading-relaxed max-w-xl">
+              Fresh graduate from <span class="text-yellow-400 font-semibold">Laguna University</span> with a BSIT degree 
+              specializing in <span class="text-yellow-400">Business Analytics</span>. Passionate about developing websites 
+              and applications that leverage the latest features the internet has to offer.
+            </p>
+            
+            <div class="flex flex-wrap gap-4 pt-4">
+              <a href="#contact" class="px-8 py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-xl hover:shadow-yellow-500/30">
+                Hire Me
+              </a>
+              <a href="#projects" class="px-8 py-4 bg-transparent border-2 border-yellow-500 text-yellow-400 font-bold rounded-xl hover:bg-yellow-500/10 hover:scale-105 transition-all">
+                View Projects
+              </a>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="flex gap-8 pt-8 stagger-children">
+              <div>
+                <div class="text-3xl font-bold gold-text">BSIT</div>
+                <div class="text-sm text-gray-400">Degree</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold gold-text">2+</div>
+                <div class="text-sm text-gray-400">Projects</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold gold-text">Laguna</div>
+                <div class="text-sm text-gray-400">Philippines</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column - Profile Picture -->
+        <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" class="flex justify-center lg:justify-end">
+          <div class="relative hover-lift">
+            <!-- Animated Border -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-2xl blur-xl opacity-75 animate-pulse"></div>
+            
+            <!-- Profile Image Container -->
+            <div class="relative w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-yellow-500/50">
+              <img src="/profile.png" alt="Wesley Fuentes Bibon" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
+            </div>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-500/20 rounded-full blur-2xl animate-pulse"></div>
+            <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400/20 rounded-full blur-2xl animate-pulse" style="animation-delay: 1s;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer">
+        <a href="#about" class="text-yellow-400 text-2xl hover:text-yellow-300 transition-colors">↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="py-20 bg-black/50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title gold-text inline-block">About Me</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Bio Card -->
+        <div class="lg:col-span-2" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+          <div class="p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover-lift">
+            <h3 class="text-2xl font-bold text-yellow-400 mb-4">Who I Am</h3>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              I'm <span class="text-yellow-400 font-semibold">Wesley Fuentes Bibon</span>, a fresh graduate from 
+              <span class="text-yellow-400">Laguna University</span> with a Bachelor of Science in Information Technology, 
+              specializing in <span class="text-yellow-400">Business Analytics</span> (Class of 2025-2026).
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              My passion lies in developing modern websites and applications that leverage cutting-edge web technologies. 
+              I enjoy exploring new features the internet has to offer and implementing them in practical, business-focused solutions.
+              My motto is: <span class="text-yellow-400 italic">"Building the future, one line of code at a time."</span>
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              <span class="text-yellow-400 font-semibold">Key Achievements:</span>
+            </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+              <li class="hover:text-yellow-400 transition-colors">Developed and published <span class="text-yellow-400">PureFace</span> mobile application on Google Play Store</li>
+              <li class="hover:text-yellow-400 transition-colors">Technical Lead for <span class="text-yellow-400">Grievease</span> - PWA Business Suite (Capstone Project)</li>
+              <li class="hover:text-yellow-400 transition-colors">Managed version control with GitHub and GitHub Desktop</li>
+              <li class="hover:text-yellow-400 transition-colors">Deployed production applications on Hostinger</li>
+              <li class="hover:text-yellow-400 transition-colors">Implemented PWA capabilities for cross-platform accessibility</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Info Cards -->
+        <div class="space-y-4 stagger-children">
+          <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift">
+            <div class="text-3xl mb-2">📍</div>
+            <h4 class="font-semibold text-yellow-400">Location</h4>
+            <p class="text-gray-400 text-sm">Laguna, Philippines</p>
+            <p class="text-gray-500 text-xs mt-1">Open to Hybrid/Remote Work</p>
+          </div>
+          
+          <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift">
+            <div class="text-3xl mb-2">🎓</div>
+            <h4 class="font-semibold text-yellow-400">Education</h4>
+            <p class="text-gray-400 text-sm">BS Information Technology</p>
+            <p class="text-gray-500 text-xs">Business Analytics Specialization</p>
+            <p class="text-gray-500 text-xs mt-1">Laguna University</p>
+            <p class="text-gray-500 text-xs">Class of 2025-2026</p>
+          </div>
+          
+          <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift">
+            <div class="text-3xl mb-2">📱</div>
+            <h4 class="font-semibold text-yellow-400">Contact</h4>
+            <p class="text-gray-400 text-sm">+63 975 793 5655</p>
+            <p class="text-gray-400 text-sm mt-1">wesleyfuentes2k22@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="py-20">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title gold-text inline-block">Technical Skills</h2>
+        <p class="text-gray-400 mt-4">Technologies I work with</p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 stagger-children">
+        {[
+          { name: 'Python', icon: '🐍', level: 75 },
+          { name: 'MySQL', icon: '🗄️', level: 80 },
+          { name: 'PHP', icon: '🐘', level: 75 },
+          { name: 'JavaScript', icon: '⚡', level: 70 },
+          { name: 'HTML', icon: '📄', level: 85 },
+          { name: 'CSS', icon: '🎨', level: 80 }
+        ].map((skill, index) => (
+          <div data-aos="flip-left" data-aos-delay={index * 100} class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer">
+            <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12">{skill.icon}</div>
+            <h4 class="font-semibold text-yellow-400 mb-2">{skill.name}</h4>
+            <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style={`width: ${skill.level}%`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Additional Skills Tags -->
+      <div class="mt-12 flex flex-wrap justify-center gap-3 stagger-children" data-aos="fade-up" data-aos-delay="300">
+        {['PWA', 'Hostinger', 'GitHub Desktop', 'phpMyAdmin', 'Responsive Design', 'Automation', 'Scrum Agile', 'Version Control', 'Mobile App Development'].map(tag => (
+          <span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="py-20 bg-black/50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title gold-text inline-block">Featured Projects</h2>
+        <p class="text-gray-400 mt-4">What I've built</p>
+      </div>
+      
+      <!-- Project 1: Grievease (Capstone) -->
+      <div class="mb-8" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <div class="p-8 rounded-3xl bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-xl border-2 border-yellow-500/50 shadow-2xl hover-lift">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="text-3xl animate-pulse">🏆</span>
+            <h3 class="text-2xl font-bold gold-text">Grievease - PWA Business Suite</h3>
+            <span class="px-3 py-1 bg-yellow-500 text-black text-xs font-bold rounded-full">Capstone Project</span>
+          </div>
+          
+          <p class="text-gray-300 mb-4">
+            A Progressive Web Application developed for VJay Relova Funeral Services to modernize operations with forecasting analytics, 
+            POS integration, inter-branch data consolidation, and real-time messaging with SMS notifications.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 stagger-children">
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">🎯</div>
+              <h4 class="font-semibold text-sm mb-1">My Role</h4>
+              <p class="text-gray-400 text-xs">Technical Lead • Automation • PWA Integration • Deployment</p>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">💡</div>
+              <h4 class="font-semibold text-sm mb-1">Key Contributions</h4>
+              <p class="text-gray-400 text-xs">GitHub version control • Hostinger deployment • PWA installation setup</p>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">📈</div>
+              <h4 class="font-semibold text-sm mb-1">Methodology</h4>
+              <p class="text-gray-400 text-xs">Scrum Agile • Iterative Planning • Continuous Improvement</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 mb-6">
+            {['PHP', 'MySQL', 'JavaScript', 'PWA', 'Hostinger', 'GitHub Desktop', 'SMS Integration'].map(tech => (
+              <span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer">
+                {tech}
+              </span>
+            ))}
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <a href="https://github.com/wisel-ctrl/grievease-hostinger.git" target="_blank" class="px-6 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-yellow-400 hover:bg-yellow-500/20 hover:scale-105 transition-all">
+              📁 GitHub Repository
+            </a>
+            <a href="https://grievease.com" target="_blank" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30">
+              🌐 Live Demo: grievease.com
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project 2: PureFace - Mobile App -->
+      <div class="mb-8" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <div class="p-8 rounded-3xl bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-xl border-2 border-yellow-500/50 shadow-2xl hover-lift">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="text-3xl animate-bounce">📱</span>
+            <h3 class="text-2xl font-bold gold-text">PureFace - Mobile Application</h3>
+            <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full border border-green-500/30">Published on Play Store</span>
+          </div>
+          
+          <p class="text-gray-300 mb-4">
+            A mobile application developed and published on Google Play Store, showcasing my ability to build, 
+            deploy, and maintain production-ready applications for real users.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 stagger-children">
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">🎯</div>
+              <h4 class="font-semibold text-sm mb-1">Platform</h4>
+              <p class="text-gray-400 text-xs">Android • Google Play Store</p>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">💡</div>
+              <h4 class="font-semibold text-sm mb-1">Package ID</h4>
+              <p class="text-gray-400 text-xs font-mono">com.wisle.purefaceapplication</p>
+            </div>
+            <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all">
+              <div class="text-yellow-400 text-xl mb-2">📈</div>
+              <h4 class="font-semibold text-sm mb-1">Status</h4>
+              <p class="text-gray-400 text-xs">Live • Available for Download</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 mb-6">
+            {['Mobile Development', 'Android', 'Google Play Console', 'App Publishing', 'User Experience'].map(tech => (
+              <span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer">
+                {tech}
+              </span>
+            ))}
+          </div>
+          
+          <div class="flex flex-wrap gap-4">
+            <a href="https://play.google.com/store/apps/details?id=com.wisle.purefaceapplication" target="_blank" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30 flex items-center gap-2">
+              <span>▶</span> View on Google Play Store
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL & CONTACT SECTION -->
+  <section id="contact" class="py-20 bg-black/50">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="section-title gold-text inline-block">Connect With Me</h2>
+        <p class="text-gray-400 mt-4">Let's build something amazing together</p>
+      </div>
+      
+      <!-- Primary Contact -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 stagger-children">
+        <a href="mailto:wesleyfuentes2k22@gmail.com" data-aos="fade-up" data-aos-delay="100"
+           class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-xl hover:shadow-yellow-500/20">
+          <div class="text-4xl mb-3 hover:scale-110 transition-transform">📧</div>
+          <h4 class="font-semibold text-yellow-400 mb-2">Email</h4>
+          <p class="text-gray-400 text-sm break-all">wesleyfuentes2k22@gmail.com</p>
+          <p class="text-gray-500 text-xs mt-2">Preferred Contact</p>
+        </a>
+        
+        <a href="tel:+639757935655" data-aos="fade-up" data-aos-delay="150"
+           class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-xl hover:shadow-yellow-500/20">
+          <div class="text-4xl mb-3 hover:scale-110 transition-transform">📞</div>
+          <h4 class="font-semibold text-yellow-400 mb-2">Phone</h4>
+          <p class="text-gray-400 text-sm">+63 975 793 5655</p>
+          <p class="text-gray-500 text-xs mt-2">Available for Calls/Text</p>
+        </a>
+      </div>
+      
+      <!-- Social Media Links -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 stagger-children">
+        <a href="https://www.linkedin.com/in/bibon-wesley-f-b76b8a29b/" target="_blank" data-aos="fade-up" data-aos-delay="200"
+           class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20">
+          <div class="text-3xl mb-2 hover:scale-110 transition-transform">💼</div>
+          <h4 class="font-semibold text-yellow-400 text-sm">LinkedIn</h4>
+          <p class="text-gray-500 text-xs mt-1">Professional</p>
+        </a>
+        
+        <a href="https://github.com/wisel-ctrl" target="_blank" data-aos="fade-up" data-aos-delay="250"
+           class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20">
+          <div class="text-3xl mb-2 hover:scale-110 transition-transform">🐙</div>
+          <h4 class="font-semibold text-yellow-400 text-sm">GitHub</h4>
+          <p class="text-gray-500 text-xs mt-1">@wisel-ctrl</p>
+        </a>
+        
+        <a href="https://www.facebook.com/wesley10022002" target="_blank" data-aos="fade-up" data-aos-delay="300"
+           class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20">
+          <div class="text-3xl mb-2 hover:scale-110 transition-transform">👤</div>
+          <h4 class="font-semibold text-yellow-400 text-sm">Facebook</h4>
+          <p class="text-gray-500 text-xs mt-1">Connect</p>
+        </a>
+        
+        <a href="https://www.instagram.com/wesleyfuentesbibon/" target="_blank" data-aos="fade-up" data-aos-delay="350"
+           class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20">
+          <div class="text-3xl mb-2 hover:scale-110 transition-transform">📷</div>
+          <h4 class="font-semibold text-yellow-400 text-sm">Instagram</h4>
+          <p class="text-gray-500 text-xs mt-1">@wesleyfuentesbibon</p>
+        </a>
+      </div>
+      
+      <!-- CONTACT FORM -->
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" class="p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover-lift">
+        <h3 class="text-xl font-bold gold-text mb-6 text-center">Send Me a Message</h3>
+        
+        <!-- Add id to form and remove action/method -->
+        <form id="contact-form" class="space-y-4 stagger-children">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" name="user_name" id="user_name" placeholder="Your Name" required
+                  class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" />
+            <input type="email" name="user_email" id="user_email" placeholder="Your Email" required
+                  class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" />
+          </div>
+          <input type="text" name="subject" id="subject" placeholder="Subject" 
+                class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" />
+          <textarea name="message" id="message" rows="4" placeholder="Your Message" required
+                    class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all"></textarea>
+          
+          <!-- Status message area -->
+          <div id="form-status" class="text-center hidden"></div>
+          
+          <button type="submit" id="submit-btn"
+                  class="w-full py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 border-t border-yellow-500/20">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+          <p class="text-gray-400 text-sm">© 2026 Wesley Fuentes Bibon. All rights reserved.</p>
+          <p class="text-gray-500 text-xs mt-1">Laguna University • BSIT Business Analytics • Class of 2025-2026</p>
+          <p class="text-yellow-400/60 text-xs mt-2 italic">"Building the future, one line of code at a time"</p>
+        </div>
+        <div class="flex gap-4">
+          <a href="mailto:wesleyfuentes2k22@gmail.com" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110">Email</a>
+          <a href="https://www.linkedin.com/in/bibon-wesley-f-b76b8a29b/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110">LinkedIn</a>
+          <a href="https://github.com/wisel-ctrl" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110">GitHub</a>
+          <a href="https://www.facebook.com/wesley10022002" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110">Facebook</a>
+          <a href="https://www.instagram.com/wesleyfuentesbibon/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</BaseLayout>
+
+<style>
+  .typing-text {
+    overflow: hidden;
+    border-right: 2px solid #D4AF37;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #D4AF37 }
+  }
+  
+  @media (max-width: 768px) {
+    .typing-text {
+      white-space: normal;
+      border-right: none;
+      animation: none;
+    }
+  }
+</style>

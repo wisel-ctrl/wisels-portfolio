@@ -1,0 +1,68 @@
+---
+const metrics = [
+  { 
+    label: 'Capstone Project', 
+    value: 'Grievease', 
+    description: 'PWA Business Suite',
+    icon: '🏆' 
+  },
+  { 
+    label: 'Deployment', 
+    value: 'Hostinger', 
+    description: 'Production Hosting',
+    icon: '☁️' 
+  },
+  { 
+    label: 'Features', 
+    value: 'PWA + Automation', 
+    description: 'Modern Stack',
+    icon: '📱' 
+  },
+  { 
+    label: 'Version Control', 
+    value: 'GitHub Desktop', 
+    description: 'Team Collaboration',
+    icon: '🔄' 
+  }
+];
+---
+
+<div class="kpi-card p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border shadow-2xl">
+  <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+    <span class="text-yellow-400">📊</span>
+    <span class="gold-text">CAPSTONE HIGHLIGHTS</span>
+  </h3>
+  
+  <div class="space-y-4">
+    {metrics.map(metric => (
+      <div class="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/40 transition-all">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">{metric.icon}</span>
+          <div>
+            <div class="text-sm text-gray-400">{metric.label}</div>
+            <div class="text-xs text-yellow-400/70">{metric.description}</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-lg font-bold font-mono gold-text">{metric.value}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="flex gap-3 mt-6">
+    <a href="/sample-cv.pdf" download class="flex-1 py-3 px-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl text-yellow-400 font-semibold hover:bg-yellow-500/20 transition-all text-center">
+      📄 Download CV (Sample)
+    </a>
+    <a href="https://github.com/wisel-ctrl/grievease-hostinger.git" target="_blank" class="flex-1 py-3 px-4 bg-black/40 border border-yellow-500/30 rounded-xl text-yellow-400 font-semibold hover:bg-yellow-500/20 transition-all text-center">
+      🔗 View Capstone Repo
+    </a>
+  </div>
+  
+  <!-- Live Demo Link -->
+  <div class="mt-4 text-center">
+    <a href="https://grievease.com" target="_blank" class="text-sm text-gray-400 hover:text-yellow-400 transition-colors">
+      🌐 Live Demo: grievease.com
+    </a>
+  </div>
+</div>

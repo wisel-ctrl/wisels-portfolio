@@ -1,0 +1,99 @@
+---
+interface Project {
+  title: string;
+  problem: string;
+  solution: string;
+  features: string[];
+  impact: string;
+  tech: string[];
+  repoLink?: string;
+  demoLink?: string;
+}
+
+const projects: Project[] = [
+  {
+    title: 'Grievease - PWA Business Suite',
+    problem: 'Manual record-keeping, inefficient inventory handling, and poor client communication at VJay Relova Funeral Services.',
+    solution: 'Developed a Progressive Web Application (PWA) with forecasting analytics, POS integration, inter-branch data consolidation, and real-time messaging with SMS notifications.',
+    features: [
+      'Forecasting Analytics',
+      'Point-of-Sale Integration',
+      'Inter-branch Data Sync',
+      'SMS Notification System',
+      'Role-based Access Control'
+    ],
+    impact: 'Streamlined operations across multiple branches with modern, accessible PWA technology.',
+    tech: ['PHP', 'MySQL', 'JavaScript', 'PWA', 'Hostinger', 'GitHub Desktop'],
+    repoLink: 'https://github.com/wisel-ctrl/grievease-hostinger.git',
+    demoLink: 'https://grievease.com'
+  }
+];
+---
+
+<div class="space-y-6">
+  {projects.map(project => (
+    <div class="project-card p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover:border-yellow-500/50 transition-all">
+      <div class="mb-6">
+        <h3 class="text-2xl font-bold gold-text mb-2">{project.title}</h3>
+        <div class="flex flex-wrap gap-2">
+          {project.tech.map(tech => (
+            <span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20">
+          <div class="text-xs text-yellow-400 font-semibold mb-2">🎯 BUSINESS PROBLEM</div>
+          <p class="text-sm text-gray-300">{project.problem}</p>
+        </div>
+        
+        <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20">
+          <div class="text-xs text-yellow-400 font-semibold mb-2">💡 SOLUTION</div>
+          <p class="text-sm text-gray-300">{project.solution}</p>
+        </div>
+      </div>
+      
+      <div class="p-4 rounded-xl bg-gradient-to-r from-yellow-500/5 to-black/40 border border-yellow-500/20 mb-6">
+        <div class="text-xs text-yellow-400 font-semibold mb-2">⚙️ KEY FEATURES IMPLEMENTED</div>
+        <div class="flex flex-wrap gap-2">
+          {project.features.map(feature => (
+            <span class="px-3 py-1 text-xs bg-yellow-500/10 text-yellow-400 rounded-full">✓ {feature}</span>
+          ))}
+        </div>
+      </div>
+      
+      <div class="p-4 rounded-xl bg-gradient-to-r from-black/40 to-yellow-500/5 border border-yellow-500/20 mb-6">
+        <div class="text-xs text-yellow-400 font-semibold mb-2">📈 IMPACT & VALUE</div>
+        <p class="text-sm text-gray-300">{project.impact}</p>
+      </div>
+      
+      <div class="flex flex-wrap items-center justify-end gap-3">
+        {project.repoLink && (
+          <a href={project.repoLink} target="_blank" class="px-4 py-2 bg-black/40 border border-yellow-500/30 rounded-lg text-sm text-yellow-400 hover:bg-yellow-500/20 transition-all">
+            📁 GitHub Repository
+          </a>
+        )}
+        {project.demoLink && (
+          <a href={project.demoLink} target="_blank" class="px-4 py-2 bg-yellow-500/20 border border-yellow-500 rounded-lg text-sm text-yellow-400 hover:bg-yellow-500/30 transition-all font-semibold">
+            🌐 Live Demo
+          </a>
+        )}
+      </div>
+      
+      <div class="mt-4 text-xs text-gray-500 font-mono">
+        Developed following Scrum Agile methodology for iterative planning and continuous improvement
+      </div>
+    </div>
+  ))}
+  
+  <!-- Future Projects Placeholder -->
+  <div class="p-6 rounded-3xl bg-black/40 backdrop-blur-xl border border-dashed border-yellow-500/30 text-center">
+    <p class="text-gray-400">
+      <span class="text-yellow-400 text-xl mr-2">🚧</span>
+      More projects coming soon! Currently working on personal web applications.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,641 @@
+<script>
+  // Advanced Scroll Animation Controller
+  class ScrollAnimationController {
+    constructor() {
+      this.animatedElements = new Map();
+      this.scrollTimeout = null;
+      this.isScrolling = false;
+      this.init();
+    }
+
+    init() {
+      // Wait for DOM to be ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.setupObservers());
+      } else {
+        this.setupObservers();
+      }
+    }
+
+    setupObservers() {
+      // Get all elements with data-aos attribute
+      const elements = document.querySelectorAll('[data-aos]');
+      
+      // Setup Intersection Observer for replay animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add animation class when element comes into view
+            this.animateElement(entry.target);
+          } else {
+            // Optional: Reset animation when element leaves view
+            // Uncomment to replay animations every time
+            this.resetElement(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2, // Trigger when 20% of element is visible
+        rootMargin: '0px 0px -50px 0px' // Slight offset for better UX
+      });
+
+      // Observe each element
+      elements.forEach(el => {
+        observer.observe(el);
+        // Store original state
+        this.animatedElements.set(el, {
+          originalClass: el.className,
+          originalStyle: el.style.cssText,
+          animationName: el.getAttribute('data-aos'),
+          duration: el.getAttribute('data-aos-duration') || 800,
+          delay: el.getAttribute('data-aos-delay') || 0
+        });
+      });
+
+      // Also trigger animations for elements already in view
+      this.triggerVisibleElements();
+    }
+
+    animateElement(element) {
+      // Remove animation classes to restart
+      element.classList.remove('aos-animate');
+      
+      // Force reflow to restart animation
+      void element.offsetHeight;
+      
+      // Add animation class
+      element.classList.add('aos-animate');
+      
+      // Add custom animation effects based on type
+      const aosType = element.getAttribute('data-aos');
+      this.addSpecialEffects(element, aosType);
+    }
+
+    resetElement(element) {
+      // Reset animation when element scrolls out of view
+      element.classList.remove('aos-animate');
+      
+      // Optional: Add a small delay before removing special effects
+      setTimeout(() => {
+        if (!this.isElementInViewport(element)) {
+          this.removeSpecialEffects(element);
+        }
+      }, 100);
+    }
+
+    triggerVisibleElements() {
+      const elements = document.querySelectorAll('[data-aos]');
+      elements.forEach(el => {
+        if (this.isElementInViewport(el)) {
+          this.animateElement(el);
+        }
+      });
+    }
+
+    isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top <= windowHeight - 100 && rect.bottom >= 100;
+    }
+
+    addSpecialEffects(element, type) {
+      // Add special interactive effects based on animation type
+      switch(type) {
+        case 'fade-up':
+          element.style.transform = 'translate3d(0, 0, 0)';
+          break;
+        case 'flip-left':
+          element.style.transform = 'perspective(2500px) rotateY(0)';
+          break;
+        case 'zoom-in':
+          element.style.transform = 'scale(1)';
+          break;
+      }
+      
+      // Add glow effect on animation
+      if (element.classList.contains('gold-border')) {
+        element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        element.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.3)';
+        setTimeout(() => {
+          element.style.boxShadow = '';
+        }, 600);
+      }
+    }
+
+    removeSpecialEffects(element) {
+      // Reset special effects
+      element.style.transform = '';
+      element.style.boxShadow = '';
+    }
+
+    // Method to manually refresh animations (useful for dynamic content)
+    refresh() {
+      this.triggerVisibleElements();
+    }
+  }
+
+  // Initialize the controller
+  const scrollController = new ScrollAnimationController();
+
+  // Add scroll spy for active navigation highlighting
+  class ScrollSpy {
+    constructor() {
+      this.sections = document.querySelectorAll('section[id]');
+      this.navLinks = document.querySelectorAll('nav a[href^="#"]');
+      this.init();
+    }
+
+    init() {
+      if (this.sections.length === 0) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            this.updateActiveNavLink(id);
+          }
+        });
+      }, {
+        threshold: 0.5,
+        rootMargin: '-80px 0px -80px 0px'
+      });
+
+      this.sections.forEach(section => observer.observe(section));
+    }
+
+    updateActiveNavLink(activeId) {
+      this.navLinks.forEach(link => {
+        const href = link.getAttribute('href').substring(1);
+        if (href === activeId) {
+          link.classList.add('text-yellow-400');
+          link.classList.remove('text-gray-300');
+        } else {
+          link.classList.remove('text-yellow-400');
+          link.classList.add('text-gray-300');
+        }
+      });
+    }
+  }
+
+  // Initialize scroll spy
+  new ScrollSpy();
+
+  // Add parallax effect to background elements
+  class ParallaxEffect {
+    constructor() {
+      this.bgElements = document.querySelectorAll('.parallax-bg');
+      this.init();
+    }
+
+    init() {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        this.bgElements.forEach(el => {
+          const speed = el.getAttribute('data-speed') || 0.5;
+          const yPos = -(scrolled * speed);
+          el.style.transform = `translateY(${yPos}px)`;
+        });
+      });
+    }
+  }
+
+  // Initialize parallax if elements exist
+  if (document.querySelectorAll('.parallax-bg').length > 0) {
+    new ParallaxEffect();
+  }
+
+  // Add hover effects and 3D tilt to cards
+  class TiltEffect {
+    constructor() {
+      this.cards = document.querySelectorAll('.tilt-card, .gold-border, .project-card');
+      this.init();
+    }
+
+    init() {
+      this.cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 20;
+          const rotateY = (centerX - x) / 20;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+          card.style.transition = 'transform 0.1s ease';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+          card.style.transition = 'transform 0.3s ease';
+        });
+      });
+    }
+  }
+
+  // Initialize tilt effect
+  new TiltEffect();
+
+  // Smooth scroll with offset for fixed header
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        const offsetTop = targetElement.offsetTop - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+        
+        // Update URL without jumping
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+
+  // Add loading animation for images
+  class LazyImageLoader {
+    constructor() {
+      this.images = document.querySelectorAll('img[data-src]');
+      this.init();
+    }
+
+    init() {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.getAttribute('data-src');
+            img.classList.add('image-loaded');
+            observer.unobserve(img);
+          }
+        });
+      });
+      
+      this.images.forEach(img => imageObserver.observe(img));
+    }
+  }
+
+  new LazyImageLoader();
+
+  // Add scroll progress indicator
+  class ScrollProgress {
+    constructor() {
+      this.progressBar = document.createElement('div');
+      this.progressBar.className = 'scroll-progress';
+      document.body.appendChild(this.progressBar);
+      this.init();
+    }
+
+    init() {
+      window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        this.progressBar.style.width = `${scrolled}%`;
+      });
+    }
+  }
+
+  new ScrollProgress();
+
+  // Add cursor trail effect (optional)
+  class CursorTrail {
+    constructor() {
+      this.trailElements = [];
+      this.init();
+    }
+
+    init() {
+      // Only on desktop
+      if (window.innerWidth > 768) {
+        document.addEventListener('mousemove', (e) => {
+          const trail = document.createElement('div');
+          trail.className = 'cursor-trail';
+          trail.style.left = e.clientX + 'px';
+          trail.style.top = e.clientY + 'px';
+          document.body.appendChild(trail);
+          
+          setTimeout(() => {
+            trail.remove();
+          }, 500);
+        });
+      }
+    }
+  }
+
+  // Uncomment to enable cursor trail
+  // new CursorTrail();
+
+  // Add typing effect to multiple elements
+  class TypingEffect {
+    constructor() {
+      this.typingElements = document.querySelectorAll('.typing-text');
+      this.init();
+    }
+
+    init() {
+      this.typingElements.forEach(el => {
+        const text = el.textContent;
+        el.textContent = '';
+        let i = 0;
+        
+        const typeInterval = setInterval(() => {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(typeInterval);
+          }
+        }, 50);
+      });
+    }
+  }
+
+  new TypingEffect();
+
+  // Add number counter for stats
+  class NumberCounter {
+    constructor() {
+      this.counters = document.querySelectorAll('.stat-number');
+      this.init();
+    }
+
+    init() {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = entry.target;
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+              current += step;
+              if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.textContent = target;
+              }
+            };
+            
+            updateCounter();
+            counterObserver.unobserve(counter);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      this.counters.forEach(counter => counterObserver.observe(counter));
+    }
+  }
+
+  new NumberCounter();
+
+  // Add smooth reveal for sections on scroll
+  class SectionReveal {
+    constructor() {
+      this.sections = document.querySelectorAll('section');
+      this.init();
+    }
+
+    init() {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      this.sections.forEach(section => revealObserver.observe(section));
+    }
+  }
+
+  new SectionReveal();
+
+  // Export refresh method for dynamic content
+  window.refreshAnimations = () => {
+    scrollController.refresh();
+  };
+</script>
+
+<style is:global>
+  /* Scroll Progress Bar */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #F5D547, #D4AF37, #B8960C);
+    z-index: 10000;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+
+  /* Cursor Trail Effect */
+  .cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #F5D547, #D4AF37);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    animation: trailFade 0.5s ease-out forwards;
+  }
+
+  @keyframes trailFade {
+    0% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
+  /* Enhanced Animation Classes */
+  [data-aos] {
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+
+  [data-aos].aos-animate {
+    opacity: 1;
+  }
+
+  /* Individual Animation Styles */
+  [data-aos="fade-up"] {
+    transform: translate3d(0, 60px, 0);
+  }
+
+  [data-aos="fade-up"].aos-animate {
+    transform: translate3d(0, 0, 0);
+  }
+
+  [data-aos="fade-right"] {
+    transform: translate3d(-60px, 0, 0);
+  }
+
+  [data-aos="fade-right"].aos-animate {
+    transform: translate3d(0, 0, 0);
+  }
+
+  [data-aos="fade-left"] {
+    transform: translate3d(60px, 0, 0);
+  }
+
+  [data-aos="fade-left"].aos-animate {
+    transform: translate3d(0, 0, 0);
+  }
+
+  [data-aos="zoom-in"] {
+    transform: scale(0.8);
+  }
+
+  [data-aos="zoom-in"].aos-animate {
+    transform: scale(1);
+  }
+
+  [data-aos="flip-left"] {
+    transform: perspective(2500px) rotateY(-100deg);
+  }
+
+  [data-aos="flip-left"].aos-animate {
+    transform: perspective(2500px) rotateY(0);
+  }
+
+  /* Section Reveal Animation */
+  section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Image Loading Animation */
+  img {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  img.image-loaded {
+    opacity: 1;
+  }
+
+  /* Hover Effects for Cards */
+  .gold-border, .project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gold-border::before, .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .gold-border:hover::before, .project-card:hover::before {
+    left: 100%;
+  }
+
+  /* Glow Effect on Hover */
+  .gold-border:hover, .project-card:hover {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    transform: translateY(-5px);
+  }
+
+  /* Button Hover Effects */
+  .gold-gradient, a[class*="gold-gradient"] {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .gold-gradient::after, a[class*="gold-gradient"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .gold-gradient:active::after, a[class*="gold-gradient"]:active::after {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* Stagger Children Animation */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: staggerIn 0.5s forwards;
+  }
+
+  @keyframes staggerIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Parallax Elements */
+  .parallax-bg {
+    will-change: transform;
+  }
+
+  /* Loading Spinner for Images */
+  .image-loading {
+    position: relative;
+    background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    
+    .gold-border:hover, .project-card:hover {
+      transform: none;
+    }
+  }
+</style>

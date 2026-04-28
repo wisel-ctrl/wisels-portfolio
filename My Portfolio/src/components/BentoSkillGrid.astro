@@ -1,0 +1,101 @@
+---
+const skills = [
+  {
+    name: 'Python',
+    icon: '🐍',
+    status: 'Intermediate',
+    lib: 'Data Analysis, Automation',
+    recent: 'Backend scripting & data processing',
+    color: 'yellow'
+  },
+  {
+    name: 'HTML/CSS',
+    icon: '🎨',
+    status: 'Advanced',
+    lib: 'Flexbox, Grid, Responsive',
+    recent: 'Modern UI development',
+    color: 'yellow'
+  },
+  {
+    name: 'JavaScript',
+    icon: '⚡',
+    status: 'Intermediate',
+    lib: 'ES6+, DOM, Events',
+    recent: 'Interactive web features',
+    color: 'yellow'
+  },
+  {
+    name: 'PHP',
+    icon: '🐘',
+    status: 'Intermediate',
+    lib: 'Backend Logic, Forms',
+    recent: 'Server-side processing',
+    color: 'yellow'
+  },
+  {
+    name: 'MySQL/PhpMyAdmin',
+    icon: '🗄️',
+    status: 'Intermediate',
+    lib: 'Queries, Relations, CRUD',
+    recent: 'Database design & management',
+    color: 'yellow'
+  },
+  {
+    name: 'GitHub & Deployment',
+    icon: '🚀',
+    status: 'Advanced',
+    lib: 'GitHub Desktop, Hostinger',
+    recent: 'Version control & hosting',
+    color: 'yellow'
+  }
+];
+---
+
+<div class="bento-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {skills.map(skill => (
+    <div class={`skill-card group relative p-6 rounded-2xl bg-black/60 backdrop-blur-xl border border-yellow-500/30 hover:border-yellow-500/50 hover:scale-102 transition-all duration-300 cursor-pointer overflow-hidden`}>
+      <!-- Hover Gradient -->
+      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/0 via-yellow-500/0 to-yellow-500/0 group-hover:from-yellow-500/10 group-hover:via-yellow-500/5 group-hover:to-yellow-500/10 transition-all duration-500"></div>
+      
+      <div class="relative z-10">
+        <div class="flex items-start justify-between mb-3">
+          <span class="text-3xl">{skill.icon}</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/30">
+            {skill.status}
+          </span>
+        </div>
+        
+        <h3 class="text-lg font-bold text-yellow-400 mb-2">{skill.name}</h3>
+        
+        <div class="space-y-2 text-sm">
+          <div class="text-gray-400">
+            <span class="text-xs uppercase tracking-wider text-yellow-500/70">Focus:</span>
+            <div class="font-mono text-gray-300 mt-1">{skill.lib}</div>
+          </div>
+          
+          <div class="text-gray-400">
+            <span class="text-xs uppercase tracking-wider text-yellow-500/70">Application:</span>
+            <div class="font-mono text-gray-300 mt-1">{skill.recent}</div>
+          </div>
+        </div>
+        
+        <!-- Code Preview (Hover) -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-black/95 backdrop-blur-md translate-y-full group-hover:translate-y-0 transition-transform duration-300 border-t border-yellow-500/30">
+          <div class="font-mono text-xs text-yellow-400">
+            <span class="text-gray-500"># {skill.name} snippet</span><br/>
+            <span class="text-yellow-500">const</span> developer <span class="text-yellow-500">=</span> {`{`}<br/>
+            &nbsp;&nbsp;skill: <span class="text-green-400">'{skill.name}'</span>,<br/>
+            &nbsp;&nbsp;level: <span class="text-green-400">'{skill.status}'</span><br/>
+            {`}`};
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+</style>

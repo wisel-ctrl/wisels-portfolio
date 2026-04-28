@@ -1,0 +1,546 @@
+---
+import '../../uno.config.ts'; 
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Graduate | Web Developer' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Wesley Fuentes Bibon" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/profile.jpg" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="../../public/styles.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  </head>
+  <body class="bg-black text-gray-200 font-sans antialiased">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-yellow-500/20 transition-all duration-500">
+      <div class="container mx-auto px-4 py-4 max-w-7xl">
+        <div class="flex items-center justify-between">
+          <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">WB.</a>
+          <div class="hidden md:flex items-center gap-8">
+            <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a>
+            <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a>
+            <a href="#skills" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Skills</a>
+            <a href="#projects" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Projects</a>
+            <a href="#contact" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Contact</a>
+            <a href="/sample-cv.pdf" download class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300">
+              Resume
+            </a>
+          </div>
+          <button class="md:hidden text-yellow-400 text-2xl hover:scale-110 transition-transform duration-300">☰</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+      <slot />
+    </main>
+
+    <!-- AOS Animation Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script is:inline>
+      // Initialize AOS with proper settings
+      function initAOS() {
+        if (typeof AOS !== 'undefined') {
+          if (window.aosInstance) {
+            window.aosInstance.destroy();
+          }
+          
+          window.aosInstance = AOS.init({
+            duration: 1000,
+            once: true,
+            mirror: false,
+            offset: 100,
+            delay: 0,
+            easing: 'ease-out-cubic',
+            disable: false,
+            startEvent: 'DOMContentLoaded',
+            initClassName: 'aos-init',
+            animatedClassName: 'aos-animate',
+            useClassNames: false,
+            throttleDelay: 99,
+            debounceDelay: 50
+          });
+          
+          setTimeout(() => {
+            AOS.refresh();
+          }, 100);
+        }
+      }
+      
+      // Initial AOS setup
+      document.addEventListener('DOMContentLoaded', function() {
+        initAOS();
+      });
+      
+      // Handle navigation clicks for smooth scrolling and animation reset
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href;
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+              // Update active state
+              document.querySelectorAll('.nav-link').forEach(navLink => {
+                navLink.classList.remove('text-yellow-400');
+                navLink.classList.add('text-gray-300');
+              });
+              this.classList.remove('text-gray-300');
+              this.classList.add('text-yellow-400');
+              
+              // Smooth scroll
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+              
+              // Reset and re-trigger animations after scroll
+              setTimeout(() => {
+                const aosElements = targetElement.querySelectorAll('[data-aos]');
+                aosElements.forEach(el => {
+                  el.classList.remove('aos-animate');
+                  // Force reflow
+                  void el.offsetHeight;
+                });
+                
+                setTimeout(() => {
+                  aosElements.forEach((el, index) => {
+                    setTimeout(() => {
+                      el.classList.add('aos-animate');
+                    }, index * 50);
+                  });
+                  if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                  }
+                }, 50);
+              }, 500);
+            }
+          }
+        });
+      });
+      
+      // Intersection Observer for re-triggering animations
+      if (typeof IntersectionObserver !== 'undefined') {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const aosElements = entry.target.querySelectorAll('[data-aos]');
+              aosElements.forEach(el => {
+                if (!el.classList.contains('aos-animate')) {
+                  el.classList.add('aos-animate');
+                }
+              });
+              if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+              }
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        
+        window.addEventListener('load', function() {
+          const sections = document.querySelectorAll('section');
+          sections.forEach(section => {
+            observer.observe(section);
+          });
+        });
+      }
+      
+      // Update active nav link on scroll
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+          const sections = document.querySelectorAll('section');
+          let currentSection = '';
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= (sectionTop - 200)) {
+              currentSection = section.getAttribute('id');
+            }
+          });
+          
+          if (currentSection) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+              const href = link.getAttribute('href');
+              if (href === `#${currentSection}`) {
+                link.classList.add('text-yellow-400');
+                link.classList.remove('text-gray-300');
+              } else {
+                link.classList.remove('text-yellow-400');
+                link.classList.add('text-gray-300');
+              }
+            });
+          }
+          
+          if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+          }
+        }, 100);
+      });
+    </script>
+    
+    <style is:global>
+      /* Load fonts */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+      
+      * {
+        scroll-behavior: smooth;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #D4AF37, #B8960C);
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #F5D547, #D4AF37);
+      }
+      
+      /* Gold styles */
+      .gold-gradient {
+        background: linear-gradient(135deg, #F5D547 0%, #D4AF37 50%, #B8960C 100%);
+        transition: all 0.3s ease;
+      }
+      
+      .gold-text {
+        background: linear-gradient(135deg, #F5D547, #D4AF37, #B8960C);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      
+      .gold-border {
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+      }
+      
+      .gold-border:hover {
+        border-color: rgba(212, 175, 55, 0.6);
+      }
+      
+      /* Section title */
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+        display: inline-block;
+      }
+      
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        transform: scaleX(0);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .section-title:hover::after {
+        transform: scaleX(1);
+      }
+      
+      /* AOS base styles - critical for animations to work */
+      [data-aos] {
+        opacity: 0;
+        transition-property: opacity, transform;
+        transition-duration: 0.8s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+      }
+      
+      [data-aos].aos-animate {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      
+      /* Individual AOS animation styles */
+      [data-aos="fade-up"] {
+        transform: translateY(40px);
+      }
+      
+      [data-aos="fade-up"].aos-animate {
+        transform: translateY(0);
+      }
+      
+      [data-aos="fade-right"] {
+        transform: translateX(-40px);
+      }
+      
+      [data-aos="fade-right"].aos-animate {
+        transform: translateX(0);
+      }
+      
+      [data-aos="fade-left"] {
+        transform: translateX(40px);
+      }
+      
+      [data-aos="fade-left"].aos-animate {
+        transform: translateX(0);
+      }
+      
+      [data-aos="flip-left"] {
+        transform: perspective(2500px) rotateY(-100deg);
+      }
+      
+      [data-aos="flip-left"].aos-animate {
+        transform: perspective(2500px) rotateY(0);
+      }
+      
+      /* Stagger children animations */
+      .stagger-children > * {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .stagger-children.animate-children > *,
+      .stagger-children > *.aos-animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .stagger-children > *:nth-child(1) { transition-delay: 0.05s; }
+      .stagger-children > *:nth-child(2) { transition-delay: 0.1s; }
+      .stagger-children > *:nth-child(3) { transition-delay: 0.15s; }
+      .stagger-children > *:nth-child(4) { transition-delay: 0.2s; }
+      .stagger-children > *:nth-child(5) { transition-delay: 0.25s; }
+      .stagger-children > *:nth-child(6) { transition-delay: 0.3s; }
+      
+      /* Hover lift effect */
+      .hover-lift {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .hover-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+      }
+      
+      /* Typing animation */
+      .typing-text {
+        overflow: hidden;
+        border-right: 2px solid #D4AF37;
+        white-space: nowrap;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+      }
+      
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      
+      @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: #D4AF37; }
+      }
+      
+      @media (max-width: 768px) {
+        .typing-text {
+          white-space: normal;
+          border-right: none;
+          animation: none;
+        }
+      }
+      
+      /* Pulse animation */
+      .animate-pulse {
+        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 0.5;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.05);
+        }
+      }
+      
+      /* Bounce animation */
+      .animate-bounce {
+        animation: bounce 2s ease-in-out infinite;
+      }
+      
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(-25%);
+          animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+        }
+        50% {
+          transform: translateY(0);
+          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+      
+      /* Spin animation */
+      .animate-spin {
+        animation: spin 20s linear infinite;
+      }
+      
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      
+      /* HTML and body styles */
+      html {
+        scroll-padding-top: 80px;
+      }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+    
+    <!-- Fallback for AOS issues -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const elements = document.querySelectorAll('[data-aos]');
+          if (elements.length > 0 && !document.querySelector('.aos-animate')) {
+            elements.forEach(function(el) {
+              el.classList.add('aos-init', 'aos-animate');
+            });
+          }
+        }, 1000);
+      });
+
+      // Observer for stagger-children animations
+      const staggerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add class to trigger stagger animation
+            entry.target.classList.add('animate-children');
+            
+            // Optional: unobserve after triggering once
+            staggerObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Observe all stagger-children elements
+      document.querySelectorAll('.stagger-children').forEach(el => {
+        staggerObserver.observe(el);
+      });
+    </script>
+    <!-- EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script is:inline>
+      // Initialize EmailJS
+      (function() {
+        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init('CAzdRDLw2qg5wObQg');
+      })();
+      
+      // Contact form handler
+      document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contact-form');
+        
+        if (contactForm) {
+          contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const statusDiv = document.getElementById('form-status');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            statusDiv.classList.add('hidden');
+            
+            // Prepare template parameters
+            const templateParams = {
+              user_name: document.getElementById('user_name').value,
+              user_email: document.getElementById('user_email').value,
+              subject: document.getElementById('subject').value || 'No Subject',
+              message: document.getElementById('message').value,
+              to_email: 'wesleyfuentes2k22@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            // Replace with your actual Service ID and Template ID
+            emailjs.send('service_qjxecht', 'template_9x090fh', templateParams)
+              .then(function(response) {
+                // Success
+                statusDiv.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
+                statusDiv.className = 'text-green-400 text-sm mt-2';
+                contactForm.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                  statusDiv.classList.add('hidden');
+                }, 5000);
+              }, function(error) {
+                // Error
+                console.error('EmailJS Error:', error);
+                statusDiv.textContent = '❌ Failed to send message. Please try again or email me directly.';
+                statusDiv.className = 'text-red-400 text-sm mt-2';
+                
+                // Reset button
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+              });
+          });
+        }
+      });
+    </script>
+    
+  </body>
+</html>
