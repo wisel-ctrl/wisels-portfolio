@@ -1,477 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="Wesley Fuentes Bibon | BSIT Business Analytics Graduate | Web Developer">
-  <meta name="author" content="Wesley Fuentes Bibon">
-  <meta property="og:title" content="Wesley Fuentes Bibon | Portfolio">
-  <meta property="og:description" content="Wesley Fuentes Bibon | BSIT Business Analytics Graduate | Web Developer">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="/profile.jpg">
-  <title>Wesley Fuentes Bibon | Portfolio</title>
-  <link rel="stylesheet" href="../../public/styles.css">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-  <style>
-    /* === RESET & BASE === */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: black;
-      color: #e5e7eb;
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* custom gold styles */
-    .gold-text {
-      background: linear-gradient(135deg, #F5D547, #D4AF37, #B8960C);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .gold-gradient {
-      background: linear-gradient(135deg, #F5D547 0%, #D4AF37 50%, #B8960C 100%);
-    }
-    .gold-border {
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: all 0.3s ease;
-    }
-    .gold-border:hover {
-      border-color: rgba(212, 175, 55, 0.6);
-    }
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-align: center;
-      position: relative;
-      display: inline-block;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-      transform: scaleX(0);
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .section-title:hover::after {
-      transform: scaleX(1);
-    }
-    .hover-lift {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .hover-lift:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-    }
-    .typing-text {
-      overflow: hidden;
-      border-right: 2px solid #D4AF37;
-      white-space: nowrap;
-      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: #D4AF37; }
-    }
-    @media (max-width: 768px) {
-      .typing-text {
-        white-space: normal;
-        border-right: none;
-        animation: none;
-      }
-    }
-    .animate-pulse {
-      animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; transform: scale(1);}
-      50% { opacity: 0.8; transform: scale(1.05);}
-    }
-    .animate-bounce {
-      animation: bounce 2s ease-in-out infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1);}
-      50% { transform: translateY(0); animation-timing-function: cubic-bezier(0,0,0.2,1);}
-    }
-    html {
-      scroll-padding-top: 80px;
-      scroll-behavior: smooth;
-    }
-    /* AOS overrides */
-    [data-aos] {
-      opacity: 0;
-      transition-property: opacity, transform;
-      transition-duration: 0.8s;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none;
-    }
-    [data-aos].aos-animate {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    [data-aos="fade-up"] { transform: translateY(40px); }
-    [data-aos="fade-up"].aos-animate { transform: translateY(0); }
-    [data-aos="fade-right"] { transform: translateX(-40px); }
-    [data-aos="fade-right"].aos-animate { transform: translateX(0); }
-    [data-aos="fade-left"] { transform: translateX(40px); }
-    [data-aos="fade-left"].aos-animate { transform: translateX(0); }
-    [data-aos="flip-left"] { transform: perspective(2500px) rotateY(-100deg); }
-    [data-aos="flip-left"].aos-animate { transform: perspective(2500px) rotateY(0); }
-    .stagger-children > * {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .stagger-children.animate-children > *,
-    .stagger-children > *.aos-animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .stagger-children > *:nth-child(1) { transition-delay: 0.05s; }
-    .stagger-children > *:nth-child(2) { transition-delay: 0.1s; }
-    .stagger-children > *:nth-child(3) { transition-delay: 0.15s; }
-    .stagger-children > *:nth-child(4) { transition-delay: 0.2s; }
-    .stagger-children > *:nth-child(5) { transition-delay: 0.25s; }
-    .stagger-children > *:nth-child(6) { transition-delay: 0.3s; }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #000000; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #D4AF37, #B8960C); border-radius: 5px; }
-    
-    /* mobile menu slide animation */
-    .mobile-menu-open {
-      overflow: hidden;
-    }
-    .mobile-nav {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 80%;
-      max-width: 320px;
-      height: 100vh;
-      background: #0a0a0a;
-      backdrop-filter: blur(20px);
-      background-color: rgba(0, 0, 0, 0.95);
-      border-left: 1px solid rgba(212, 175, 55, 0.4);
-      z-index: 1000;
-      padding: 6rem 2rem 2rem;
-      transition: right 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-    }
-    .mobile-nav.active {
-      right: 0;
-    }
-    .mobile-nav a {
-      color: #e5e7eb;
-      text-decoration: none;
-      font-size: 1.35rem;
-      font-weight: 500;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      transition: all 0.2s;
-      display: block;
-    }
-    .mobile-nav a:hover {
-      color: #F5D547;
-      padding-left: 0.5rem;
-      border-bottom-color: #D4AF37;
-    }
-    .mobile-resume-btn {
-      margin-top: 0.5rem;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid rgba(212, 175, 55, 0.5);
-      text-align: center;
-      border-radius: 40px;
-      padding: 0.75rem !important;
-      font-weight: 600;
-    }
-    .mobile-resume-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
-      color: #F5D547;
-    }
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 990;
-      opacity: 0;
-      visibility: hidden;
-      transition: 0.25s;
-    }
-    .menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .hamburger-btn {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 2rem;
-      line-height: 1;
-      transition: transform 0.2s;
-      z-index: 1001;
-      position: relative;
-    }
-    .close-icon {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      font-size: 2rem;
-      background: none;
-      border: none;
-      color: #F5D547;
-      cursor: pointer;
-      z-index: 1002;
-    }
-    @media (min-width: 769px) {
-      .mobile-nav, .menu-overlay, .close-icon {
-        display: none;
-      }
-    }
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-  </style>
-</head>
-<body class="bg-black text-gray-200 font-sans antialiased">
-
-  <!-- Navigation Bar with FIXED hamburger -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-yellow-500/20 transition-all duration-500">
-    <div class="container mx-auto px-4 py-4 max-w-7xl">
-      <div class="flex items-center justify-between">
-        <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">My Portfolio</a>
-        
-        <!-- desktop nav -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a>
-          <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a>
-          <a href="#skills" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Skills</a>
-          <a href="#projects" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Projects</a>
-          <a href="#contact" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Contact</a>
-          <a href="/sample-cv.pdf" download class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300">Resume</a>
-        </div>
-        
-        <!-- HAMBURGER BUTTON (fixed) -->
-        <button id="hamburgerBtn" class="md:hidden text-yellow-400 text-3xl hover:scale-110 transition-transform duration-300 focus:outline-none" aria-label="Menu">☰</button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Mobile Menu Panel (slide-out) -->
-  <div id="mobileMenu" class="mobile-nav">
-    <button id="closeMenuBtn" class="close-icon" aria-label="Close menu">✕</button>
-    <a href="#home" class="mobile-nav-link">🏠 Home</a>
-    <a href="#about" class="mobile-nav-link">👤 About</a>
-    <a href="#skills" class="mobile-nav-link">⚙️ Skills</a>
-    <a href="#projects" class="mobile-nav-link">📁 Projects</a>
-    <a href="#contact" class="mobile-nav-link">📬 Contact</a>
-    <a href="/sample-cv.pdf" download class="mobile-resume-btn">📄 Resume</a>
-  </div>
-  <div id="menuOverlay" class="menu-overlay"></div>
-
-  <main class="pt-20">
-    <!-- ========== HOME SECTION ========== -->
-    <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
-      <div class="absolute inset-0 -z-10">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400/5 rounded-full blur-3xl"></div>
-      </div>
-      <div class="container mx-auto px-4 py-20 max-w-7xl">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100">
-            <div class="space-y-6">
-              <div class="inline-block px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full hover:scale-105 transition-transform">
-                <span class="text-yellow-400 text-lg font-mono">Hello, I'm</span>
-              </div>
-              <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold">
-                <span class="text-white">Wesley</span> <br>
-                <span class="gold-text">Fuentes Bibon</span>
-              </h1>
-              <div class="font-mono text-gray-400 text-lg border-l-4 border-yellow-500 pl-4">
-                <span class="typing-text">Building the future, one line of code at a time</span>
-              </div>
-              <p class="text-gray-300 text-lg leading-relaxed max-w-xl">
-                Fresh graduate from <span class="text-yellow-400 font-semibold">Laguna University</span> with a BSIT degree 
-                specializing in <span class="text-yellow-400">Business Analytics</span>. Passionate about developing websites 
-                and applications that leverage the latest features the internet has to offer.
-              </p>
-              <div class="flex flex-wrap gap-4 pt-4">
-                <a href="#contact" class="px-8 py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-xl hover:shadow-yellow-500/30">Hire Me</a>
-                <a href="#projects" class="px-8 py-4 bg-transparent border-2 border-yellow-500 text-yellow-400 font-bold rounded-xl hover:bg-yellow-500/10 hover:scale-105 transition-all">View Projects</a>
-              </div>
-              <div class="flex gap-8 pt-8 stagger-children">
-                <div><div class="text-3xl font-bold gold-text">BSIT</div><div class="text-sm text-gray-400">Degree</div></div>
-                <div><div class="text-3xl font-bold gold-text">2+</div><div class="text-sm text-gray-400">Projects</div></div>
-                <div><div class="text-3xl font-bold gold-text">Laguna</div><div class="text-sm text-gray-400">Philippines</div></div>
-              </div>
-            </div>
-          </div>
-          <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" class="flex justify-center lg:justify-end">
-            <div class="relative hover-lift">
-              <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-2xl blur-xl opacity-75 animate-pulse"></div>
-              <div class="relative w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-yellow-500/50">
-                <img src="/profile.png" alt="Wesley Fuentes Bibon" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
-              </div>
-              <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-500/20 rounded-full blur-2xl animate-pulse"></div>
-              <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400/20 rounded-full blur-2xl animate-pulse" style="animation-delay: 1s;"></div>
-            </div>
-          </div>
-        </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer">
-          <a href="#about" class="text-yellow-400 text-2xl hover:text-yellow-300 transition-colors">↓</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- About, Skills, Projects, Contact (condensed but fully functional) -->
-    <section id="about" class="py-20 bg-black/50"><div class="container mx-auto px-4 max-w-7xl"><div class="text-center mb-12" data-aos="fade-up"><h2 class="section-title gold-text inline-block">About Me</h2></div><div class="grid grid-cols-1 lg:grid-cols-3 gap-8"><div class="lg:col-span-2" data-aos="fade-right"><div class="p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover-lift"><h3 class="text-2xl font-bold text-yellow-400 mb-4">Who I Am</h3><p class="text-gray-300 leading-relaxed mb-4">I'm <span class="text-yellow-400 font-semibold">Wesley Fuentes Bibon</span>, a fresh graduate from <span class="text-yellow-400">Laguna University</span> with a Bachelor of Science in Information Technology, specializing in <span class="text-yellow-400">Business Analytics</span> (Class of 2025-2026).</p><p class="text-gray-300 leading-relaxed mb-4">My passion lies in developing modern websites and applications that leverage cutting-edge web technologies. My motto is: <span class="text-yellow-400 italic">"Building the future, one line of code at a time."</span></p><ul class="list-disc list-inside text-gray-300 space-y-2 ml-4"><li>Developed and published <span class="text-yellow-400">PureFace</span> mobile application on Google Play Store</li><li>Technical Lead for <span class="text-yellow-400">Grievease</span> - PWA Business Suite (Capstone Project)</li><li>Managed version control with GitHub and deployed on Hostinger</li></ul></div></div><div class="space-y-4 stagger-children"><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border"><div class="text-3xl mb-2">📍</div><h4 class="font-semibold text-yellow-400">Location</h4><p class="text-gray-400 text-sm">Laguna, Philippines</p></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border"><div class="text-3xl mb-2">🎓</div><h4 class="font-semibold text-yellow-400">Education</h4><p class="text-gray-400 text-sm">BSIT - Business Analytics, Laguna University</p></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border"><div class="text-3xl mb-2">📱</div><h4 class="font-semibold text-yellow-400">Contact</h4><p class="text-gray-400 text-sm">+63 975 793 5655<br>wesleyfuentes2k22@gmail.com</p></div></div></div></div></section>
-
-    <section id="skills" class="py-20"><div class="container mx-auto px-4 max-w-7xl"><div class="text-center mb-12" data-aos="fade-up"><h2 class="section-title gold-text inline-block">Technical Skills</h2><p class="text-gray-400 mt-4">Technologies I work with</p></div><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 stagger-children"><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3 group-hover:scale-110">🐍</div><h4 class="font-semibold text-yellow-400">Python</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:75%"></div></div></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3">🗄️</div><h4 class="font-semibold text-yellow-400">MySQL</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:80%"></div></div></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3">🐘</div><h4 class="font-semibold text-yellow-400">PHP</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:75%"></div></div></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3">⚡</div><h4 class="font-semibold text-yellow-400">JavaScript</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:70%"></div></div></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3">📄</div><h4 class="font-semibold text-yellow-400">HTML</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:85%"></div></div></div><div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 text-center group"><div class="text-4xl mb-3">🎨</div><h4 class="font-semibold text-yellow-400">CSS</h4><div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden"><div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width:80%"></div></div></div></div><div class="mt-12 flex flex-wrap justify-center gap-3"><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm">PWA</span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm">Hostinger</span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm">GitHub</span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm">Responsive Design</span></div></div></section>
-
-    <section id="projects" class="py-20 bg-black/50"><div class="container mx-auto px-4 max-w-7xl"><div class="text-center mb-12" data-aos="fade-up"><h2 class="section-title gold-text inline-block">Featured Projects</h2></div><div class="mb-8" data-aos="fade-up"><div class="p-8 rounded-3xl bg-black/80 backdrop-blur-xl border-2 border-yellow-500/50"><h3 class="text-2xl font-bold gold-text">🏆 Grievease - PWA Business Suite</h3><p class="text-gray-300 my-3">A Progressive Web Application for funeral services with forecasting analytics, POS integration, and real-time messaging.</p><div class="flex flex-wrap gap-2 my-4"><span class="px-3 py-1 text-xs bg-yellow-500/10 text-yellow-400 rounded-full">PHP</span><span class="px-3 py-1 text-xs bg-yellow-500/10 text-yellow-400 rounded-full">MySQL</span><span class="px-3 py-1 text-xs bg-yellow-500/10 text-yellow-400 rounded-full">PWA</span></div><div class="flex gap-4 flex-wrap"><a href="#" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl">🔗 Live Demo</a></div></div></div><div data-aos="fade-up"><div class="p-8 rounded-3xl bg-black/80 backdrop-blur-xl border-2 border-yellow-500/50"><h3 class="text-2xl font-bold gold-text">📱 PureFace - Mobile Application</h3><p class="text-gray-300 my-3">Published on Google Play Store — Android app with modern UI.</p><div class="flex flex-wrap gap-4"><a href="#" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl">▶ View on Play Store</a></div></div></div></div></section>
-
-    <section id="contact" class="py-20"><div class="container mx-auto px-4 max-w-4xl"><div class="text-center mb-12" data-aos="fade-up"><h2 class="section-title gold-text inline-block">Connect With Me</h2><p class="text-gray-400">Let's build something amazing together</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"><a href="mailto:wesleyfuentes2k22@gmail.com" class="p-6 rounded-2xl bg-black/60 gold-border text-center hover:scale-105 transition"><div class="text-4xl mb-2">📧</div><h4 class="font-semibold text-yellow-400">Email</h4><p class="text-gray-400">wesleyfuentes2k22@gmail.com</p></a><a href="tel:+639757935655" class="p-6 rounded-2xl bg-black/60 gold-border text-center hover:scale-105 transition"><div class="text-4xl mb-2">📞</div><h4 class="font-semibold text-yellow-400">Phone</h4><p class="text-gray-400">+63 975 793 5655</p></a></div><div class="bg-black/60 backdrop-blur-xl gold-border p-8 rounded-3xl"><h3 class="text-xl font-bold gold-text text-center mb-6">Send Me a Message</h3><form id="contact-form" class="space-y-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><input type="text" id="user_name" placeholder="Your Name" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200"><input type="email" id="user_email" placeholder="Your Email" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200"></div><input type="text" id="subject" placeholder="Subject" class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl"><textarea id="message" rows="4" placeholder="Your Message" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl"></textarea><div id="form-status" class="text-center hidden"></div><button type="submit" id="submit-btn" class="w-full py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition">Send Message</button></form></div></div></section>
-    
-    <footer class="py-8 border-t border-yellow-500/20"><div class="container mx-auto px-4 text-center"><p class="text-gray-400">© 2026 Wesley Fuentes Bibon. All rights reserved.</p><p class="text-gray-500 text-sm">Laguna University • BSIT Business Analytics • Class of 2025-2026</p></div></footer>
-  </main>
-
-  <!-- Scripts: AOS + Mobile hamburger logic + EmailJS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script>
-    (function() {
-      // AOS init
-      if (typeof AOS !== 'undefined') {
-        AOS.init({ duration: 1000, once: true, offset: 100 });
-      }
-      // ========== HAMBURGER MENU FIX ==========
-      const hamburger = document.getElementById('hamburgerBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const overlay = document.getElementById('menuOverlay');
-      const closeBtn = document.getElementById('closeMenuBtn');
-      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-      
-      function openMenu() {
-        mobileMenu.classList.add('active');
-        overlay.classList.add('active');
-        document.body.classList.add('mobile-menu-open');
-      }
-      function closeMenu() {
-        mobileMenu.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.classList.remove('mobile-menu-open');
-      }
-      if (hamburger) hamburger.addEventListener('click', openMenu);
-      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-      if (overlay) overlay.addEventListener('click', closeMenu);
-      
-      // close menu after clicking any mobile link + smooth scroll
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href');
-          if (targetId && targetId.startsWith('#')) {
-            const targetElem = document.querySelector(targetId);
-            if (targetElem) {
-              closeMenu();
-              setTimeout(() => {
-                targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 150);
-            }
-          } else if (this.getAttribute('download')) {
-            closeMenu();
-          } else {
-            closeMenu();
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Wesley Fuentes Bibon | BSIT Business Analytics Graduate | Web Developer"><meta name="author" content="Wesley Fuentes Bibon"><meta property="og:title" content="Wesley Fuentes Bibon | Portfolio"><meta property="og:description" content="Wesley Fuentes Bibon | BSIT Business Analytics Graduate | Web Developer"><meta property="og:type" content="website"><meta property="og:image" content="/profile.jpg"><title>Wesley Fuentes Bibon | Portfolio</title><link rel="stylesheet" href="../../public/styles.css"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"><link rel="stylesheet" href="/_astro/index.CRRI8mdj.css"></head> <body class="bg-black text-gray-200 font-sans antialiased"> <!-- Navigation Bar --> <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-yellow-500/20 transition-all duration-500"> <div class="container mx-auto px-4 py-4 max-w-7xl"> <div class="flex items-center justify-between"> <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">My Portfolio</a> <div class="hidden md:flex items-center gap-8"> <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a> <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a> <a href="#skills" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Skills</a> <a href="#projects" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Projects</a> <a href="#contact" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Contact</a> <a href="/sample-cv.pdf" download class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400 text-sm font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300">
+Resume
+</a> </div> <button class="md:hidden text-yellow-400 text-2xl hover:scale-110 transition-transform duration-300">☰</button> </div> </div> </nav> <!-- Main Content --> <main class="pt-20">   <section id="home" class="min-h-screen flex items-center relative overflow-hidden" data-astro-cid-j7pv25f6> <!-- Background Animation --> <div class="absolute inset-0 -z-10" data-astro-cid-j7pv25f6> <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" data-astro-cid-j7pv25f6></div> <div class="absolute bottom-20 right-10 w-96 h-96 bg-yellow-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;" data-astro-cid-j7pv25f6></div> <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400/5 rounded-full blur-3xl" data-astro-cid-j7pv25f6></div> </div> <div class="container mx-auto px-4 py-20 max-w-7xl" data-astro-cid-j7pv25f6> <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" data-astro-cid-j7pv25f6> <!-- Left Column - Text Content --> <div data-aos="fade-right" data-aos-duration="1000" data-aos-delay="100" data-astro-cid-j7pv25f6> <div class="space-y-6" data-astro-cid-j7pv25f6> <div class="inline-block px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full hover:scale-105 transition-transform" data-astro-cid-j7pv25f6> <span class="text-yellow-400 text-lg font-mono" data-astro-cid-j7pv25f6> Hello, I'm</span> </div> <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold" data-astro-cid-j7pv25f6> <span class="text-white" data-astro-cid-j7pv25f6>Wesley</span> <br data-astro-cid-j7pv25f6> <span class="gold-text" data-astro-cid-j7pv25f6>Fuentes Bibon</span> </h1> <div class="font-mono text-gray-400 text-lg border-l-4 border-yellow-500 pl-4" data-astro-cid-j7pv25f6> <span class="typing-text" data-astro-cid-j7pv25f6>Building the future, one line of code at a time</span> </div> <p class="text-gray-300 text-lg leading-relaxed max-w-xl" data-astro-cid-j7pv25f6>
+Fresh graduate from <span class="text-yellow-400 font-semibold" data-astro-cid-j7pv25f6>Laguna University</span> with a BSIT degree 
+              specializing in <span class="text-yellow-400" data-astro-cid-j7pv25f6>Business Analytics</span>. Passionate about developing websites 
+              and applications that leverage the latest features the internet has to offer.
+</p> <div class="flex flex-wrap gap-4 pt-4" data-astro-cid-j7pv25f6> <a href="#contact" class="px-8 py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-xl hover:shadow-yellow-500/30" data-astro-cid-j7pv25f6>
+Hire Me
+</a> <a href="#projects" class="px-8 py-4 bg-transparent border-2 border-yellow-500 text-yellow-400 font-bold rounded-xl hover:bg-yellow-500/10 hover:scale-105 transition-all" data-astro-cid-j7pv25f6>
+View Projects
+</a> </div> <!-- Quick Stats --> <div class="flex gap-8 pt-8 stagger-children" data-astro-cid-j7pv25f6> <div data-astro-cid-j7pv25f6> <div class="text-3xl font-bold gold-text" data-astro-cid-j7pv25f6>BSIT</div> <div class="text-sm text-gray-400" data-astro-cid-j7pv25f6>Degree</div> </div> <div data-astro-cid-j7pv25f6> <div class="text-3xl font-bold gold-text" data-astro-cid-j7pv25f6>2+</div> <div class="text-sm text-gray-400" data-astro-cid-j7pv25f6>Projects</div> </div> <div data-astro-cid-j7pv25f6> <div class="text-3xl font-bold gold-text" data-astro-cid-j7pv25f6>Laguna</div> <div class="text-sm text-gray-400" data-astro-cid-j7pv25f6>Philippines</div> </div> </div> </div> </div> <!-- Right Column - Profile Picture --> <div data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" class="flex justify-center lg:justify-end" data-astro-cid-j7pv25f6> <div class="relative hover-lift" data-astro-cid-j7pv25f6> <!-- Animated Border --> <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-2xl blur-xl opacity-75 animate-pulse" data-astro-cid-j7pv25f6></div> <!-- Profile Image Container --> <div class="relative w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden border-4 border-yellow-500/50" data-astro-cid-j7pv25f6> <img src="/profile.png" alt="Wesley Fuentes Bibon" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" data-astro-cid-j7pv25f6> </div> <!-- Decorative Elements --> <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-yellow-500/20 rounded-full blur-2xl animate-pulse" data-astro-cid-j7pv25f6></div> <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400/20 rounded-full blur-2xl animate-pulse" style="animation-delay: 1s;" data-astro-cid-j7pv25f6></div> </div> </div> </div> <!-- Scroll Indicator --> <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer" data-astro-cid-j7pv25f6> <a href="#about" class="text-yellow-400 text-2xl hover:text-yellow-300 transition-colors" data-astro-cid-j7pv25f6>↓</a> </div> </div> </section>  <section id="about" class="py-20 bg-black/50" data-astro-cid-j7pv25f6> <div class="container mx-auto px-4 max-w-7xl" data-astro-cid-j7pv25f6> <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800" data-astro-cid-j7pv25f6> <h2 class="section-title gold-text inline-block" data-astro-cid-j7pv25f6>About Me</h2> </div> <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-astro-cid-j7pv25f6> <!-- Bio Card --> <div class="lg:col-span-2" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100" data-astro-cid-j7pv25f6> <div class="p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover-lift" data-astro-cid-j7pv25f6> <h3 class="text-2xl font-bold text-yellow-400 mb-4" data-astro-cid-j7pv25f6>Who I Am</h3> <p class="text-gray-300 leading-relaxed mb-4" data-astro-cid-j7pv25f6>
+I'm <span class="text-yellow-400 font-semibold" data-astro-cid-j7pv25f6>Wesley Fuentes Bibon</span>, a fresh graduate from
+<span class="text-yellow-400" data-astro-cid-j7pv25f6>Laguna University</span> with a Bachelor of Science in Information Technology, 
+              specializing in <span class="text-yellow-400" data-astro-cid-j7pv25f6>Business Analytics</span> (Class of 2025-2026).
+</p> <p class="text-gray-300 leading-relaxed mb-4" data-astro-cid-j7pv25f6>
+My passion lies in developing modern websites and applications that leverage cutting-edge web technologies. 
+              I enjoy exploring new features the internet has to offer and implementing them in practical, business-focused solutions.
+              My motto is: <span class="text-yellow-400 italic" data-astro-cid-j7pv25f6>"Building the future, one line of code at a time."</span> </p> <p class="text-gray-300 leading-relaxed mb-4" data-astro-cid-j7pv25f6> <span class="text-yellow-400 font-semibold" data-astro-cid-j7pv25f6>Key Achievements:</span> </p> <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4" data-astro-cid-j7pv25f6> <li class="hover:text-yellow-400 transition-colors" data-astro-cid-j7pv25f6>Developed and published <span class="text-yellow-400" data-astro-cid-j7pv25f6>PureFace</span> mobile application on Google Play Store</li> <li class="hover:text-yellow-400 transition-colors" data-astro-cid-j7pv25f6>Technical Lead for <span class="text-yellow-400" data-astro-cid-j7pv25f6>Grievease</span> - PWA Business Suite (Capstone Project)</li> <li class="hover:text-yellow-400 transition-colors" data-astro-cid-j7pv25f6>Managed version control with GitHub and GitHub Desktop</li> <li class="hover:text-yellow-400 transition-colors" data-astro-cid-j7pv25f6>Deployed production applications on Hostinger</li> <li class="hover:text-yellow-400 transition-colors" data-astro-cid-j7pv25f6>Implemented PWA capabilities for cross-platform accessibility</li> </ul> </div> </div> <!-- Info Cards --> <div class="space-y-4 stagger-children" data-astro-cid-j7pv25f6> <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2" data-astro-cid-j7pv25f6>📍</div> <h4 class="font-semibold text-yellow-400" data-astro-cid-j7pv25f6>Location</h4> <p class="text-gray-400 text-sm" data-astro-cid-j7pv25f6>Laguna, Philippines</p> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>Open to Hybrid/Remote Work</p> </div> <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2" data-astro-cid-j7pv25f6>🎓</div> <h4 class="font-semibold text-yellow-400" data-astro-cid-j7pv25f6>Education</h4> <p class="text-gray-400 text-sm" data-astro-cid-j7pv25f6>BS Information Technology</p> <p class="text-gray-500 text-xs" data-astro-cid-j7pv25f6>Business Analytics Specialization</p> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>Laguna University</p> <p class="text-gray-500 text-xs" data-astro-cid-j7pv25f6>Class of 2025-2026</p> </div> <div class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover-lift" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2" data-astro-cid-j7pv25f6>📱</div> <h4 class="font-semibold text-yellow-400" data-astro-cid-j7pv25f6>Contact</h4> <p class="text-gray-400 text-sm" data-astro-cid-j7pv25f6>+63 975 793 5655</p> <p class="text-gray-400 text-sm mt-1" data-astro-cid-j7pv25f6>wesleyfuentes2k22@gmail.com</p> </div> </div> </div> </div> </section>  <section id="skills" class="py-20" data-astro-cid-j7pv25f6> <div class="container mx-auto px-4 max-w-7xl" data-astro-cid-j7pv25f6> <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800" data-astro-cid-j7pv25f6> <h2 class="section-title gold-text inline-block" data-astro-cid-j7pv25f6>Technical Skills</h2> <p class="text-gray-400 mt-4" data-astro-cid-j7pv25f6>Technologies I work with</p> </div> <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 stagger-children" data-astro-cid-j7pv25f6> <div data-aos="flip-left" data-aos-delay="0" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>🐍</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>Python</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 75%" data-astro-cid-j7pv25f6></div> </div> </div><div data-aos="flip-left" data-aos-delay="100" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>🗄️</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>MySQL</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 80%" data-astro-cid-j7pv25f6></div> </div> </div><div data-aos="flip-left" data-aos-delay="200" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>🐘</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>PHP</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 75%" data-astro-cid-j7pv25f6></div> </div> </div><div data-aos="flip-left" data-aos-delay="300" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>⚡</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>JavaScript</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 70%" data-astro-cid-j7pv25f6></div> </div> </div><div data-aos="flip-left" data-aos-delay="400" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>📄</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>HTML</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 85%" data-astro-cid-j7pv25f6></div> </div> </div><div data-aos="flip-left" data-aos-delay="500" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border hover:scale-105 transition-transform text-center group cursor-pointer" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 group-hover:scale-110 transition-transform group-hover:rotate-12" data-astro-cid-j7pv25f6>🎨</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>CSS</h4> <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden" data-astro-cid-j7pv25f6> <div class="bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full transition-all duration-1000 group-hover:w-full" style="width: 80%" data-astro-cid-j7pv25f6></div> </div> </div> </div> <!-- Additional Skills Tags --> <div class="mt-12 flex flex-wrap justify-center gap-3 stagger-children" data-aos="fade-up" data-aos-delay="300" data-astro-cid-j7pv25f6> <span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> PWA </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Hostinger </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> GitHub Desktop </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> phpMyAdmin </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Responsive Design </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Automation </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Scrum Agile </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Version Control </span><span class="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-mono hover:bg-yellow-500/20 hover:scale-110 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Mobile App Development </span> </div> </div> </section>  <section id="projects" class="py-20 bg-black/50" data-astro-cid-j7pv25f6> <div class="container mx-auto px-4 max-w-7xl" data-astro-cid-j7pv25f6> <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800" data-astro-cid-j7pv25f6> <h2 class="section-title gold-text inline-block" data-astro-cid-j7pv25f6>Featured Projects</h2> <p class="text-gray-400 mt-4" data-astro-cid-j7pv25f6>What I've built</p> </div> <!-- Project 1: Grievease (Capstone) --> <div class="mb-8" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" data-astro-cid-j7pv25f6> <div class="p-8 rounded-3xl bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-xl border-2 border-yellow-500/50 shadow-2xl hover-lift" data-astro-cid-j7pv25f6> <div class="flex flex-wrap items-center gap-3 mb-4" data-astro-cid-j7pv25f6> <span class="text-3xl animate-pulse" data-astro-cid-j7pv25f6>🏆</span> <h3 class="text-2xl font-bold gold-text" data-astro-cid-j7pv25f6>Grievease - PWA Business Suite</h3> <span class="px-3 py-1 bg-yellow-500 text-black text-xs font-bold rounded-full" data-astro-cid-j7pv25f6>Capstone Project</span> </div> <p class="text-gray-300 mb-4" data-astro-cid-j7pv25f6>
+A Progressive Web Application developed for VJay Relova Funeral Services to modernize operations with forecasting analytics, 
+            POS integration, inter-branch data consolidation, and real-time messaging with SMS notifications.
+</p> <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 stagger-children" data-astro-cid-j7pv25f6> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>🎯</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>My Role</h4> <p class="text-gray-400 text-xs" data-astro-cid-j7pv25f6>Technical Lead • Automation • PWA Integration • Deployment</p> </div> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>💡</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>Key Contributions</h4> <p class="text-gray-400 text-xs" data-astro-cid-j7pv25f6>GitHub version control • Hostinger deployment • PWA installation setup</p> </div> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>📈</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>Methodology</h4> <p class="text-gray-400 text-xs" data-astro-cid-j7pv25f6>Scrum Agile • Iterative Planning • Continuous Improvement</p> </div> </div> <div class="flex flex-wrap gap-2 mb-6" data-astro-cid-j7pv25f6> <span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> PHP </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> MySQL </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> JavaScript </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> PWA </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Hostinger </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> GitHub Desktop </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> SMS Integration </span> </div> <div class="flex flex-wrap gap-4" data-astro-cid-j7pv25f6> <a href="https://github.com/wisel-ctrl/grievease-hostinger.git" target="_blank" class="px-6 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-yellow-400 hover:bg-yellow-500/20 hover:scale-105 transition-all" data-astro-cid-j7pv25f6>
+📁 GitHub Repository
+</a> <a href="https://grievease.com" target="_blank" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30" data-astro-cid-j7pv25f6>
+🌐 Live Demo: grievease.com
+</a> </div> </div> </div> <!-- Project 2: PureFace - Mobile App --> <div class="mb-8" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" data-astro-cid-j7pv25f6> <div class="p-8 rounded-3xl bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-xl border-2 border-yellow-500/50 shadow-2xl hover-lift" data-astro-cid-j7pv25f6> <div class="flex flex-wrap items-center gap-3 mb-4" data-astro-cid-j7pv25f6> <span class="text-3xl animate-bounce" data-astro-cid-j7pv25f6>📱</span> <h3 class="text-2xl font-bold gold-text" data-astro-cid-j7pv25f6>PureFace - Mobile Application</h3> <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded-full border border-green-500/30" data-astro-cid-j7pv25f6>Published on Play Store</span> </div> <p class="text-gray-300 mb-4" data-astro-cid-j7pv25f6>
+A mobile application developed and published on Google Play Store, showcasing my ability to build, 
+            deploy, and maintain production-ready applications for real users.
+</p> <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 stagger-children" data-astro-cid-j7pv25f6> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>🎯</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>Platform</h4> <p class="text-gray-400 text-xs" data-astro-cid-j7pv25f6>Android • Google Play Store</p> </div> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>💡</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>Package ID</h4> <p class="text-gray-400 text-xs font-mono" data-astro-cid-j7pv25f6>com.wisle.purefaceapplication</p> </div> <div class="p-4 rounded-xl bg-black/40 border border-yellow-500/20 hover:border-yellow-500/50 transition-all" data-astro-cid-j7pv25f6> <div class="text-yellow-400 text-xl mb-2" data-astro-cid-j7pv25f6>📈</div> <h4 class="font-semibold text-sm mb-1" data-astro-cid-j7pv25f6>Status</h4> <p class="text-gray-400 text-xs" data-astro-cid-j7pv25f6>Live • Available for Download</p> </div> </div> <div class="flex flex-wrap gap-2 mb-6" data-astro-cid-j7pv25f6> <span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Mobile Development </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Android </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> Google Play Console </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> App Publishing </span><span class="px-3 py-1 text-xs font-mono bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 rounded-full hover:bg-yellow-500/20 hover:scale-105 transition-all cursor-pointer" data-astro-cid-j7pv25f6> User Experience </span> </div> <div class="flex flex-wrap gap-4" data-astro-cid-j7pv25f6> <a href="https://play.google.com/store/apps/details?id=com.wisle.purefaceapplication" target="_blank" class="px-6 py-3 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30 flex items-center gap-2" data-astro-cid-j7pv25f6> <span data-astro-cid-j7pv25f6>▶</span> View on Google Play Store
+</a> </div> </div> </div> </div> </section>  <section id="contact" class="py-20 bg-black/50" data-astro-cid-j7pv25f6> <div class="container mx-auto px-4 max-w-4xl" data-astro-cid-j7pv25f6> <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800" data-astro-cid-j7pv25f6> <h2 class="section-title gold-text inline-block" data-astro-cid-j7pv25f6>Connect With Me</h2> <p class="text-gray-400 mt-4" data-astro-cid-j7pv25f6>Let's build something amazing together</p> </div> <!-- Primary Contact --> <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 stagger-children" data-astro-cid-j7pv25f6> <a href="mailto:wesleyfuentes2k22@gmail.com" data-aos="fade-up" data-aos-delay="100" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-xl hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>📧</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>Email</h4> <p class="text-gray-400 text-sm break-all" data-astro-cid-j7pv25f6>wesleyfuentes2k22@gmail.com</p> <p class="text-gray-500 text-xs mt-2" data-astro-cid-j7pv25f6>Preferred Contact</p> </a> <a href="tel:+639757935655" data-aos="fade-up" data-aos-delay="150" class="p-6 rounded-2xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-xl hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-4xl mb-3 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>📞</div> <h4 class="font-semibold text-yellow-400 mb-2" data-astro-cid-j7pv25f6>Phone</h4> <p class="text-gray-400 text-sm" data-astro-cid-j7pv25f6>+63 975 793 5655</p> <p class="text-gray-500 text-xs mt-2" data-astro-cid-j7pv25f6>Available for Calls/Text</p> </a> </div> <!-- Social Media Links --> <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 stagger-children" data-astro-cid-j7pv25f6> <a href="https://www.linkedin.com/in/bibon-wesley-f-b76b8a29b/" target="_blank" data-aos="fade-up" data-aos-delay="200" class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>💼</div> <h4 class="font-semibold text-yellow-400 text-sm" data-astro-cid-j7pv25f6>LinkedIn</h4> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>Professional</p> </a> <a href="https://github.com/wisel-ctrl" target="_blank" data-aos="fade-up" data-aos-delay="250" class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>🐙</div> <h4 class="font-semibold text-yellow-400 text-sm" data-astro-cid-j7pv25f6>GitHub</h4> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>@wisel-ctrl</p> </a> <a href="https://www.facebook.com/wesley10022002" target="_blank" data-aos="fade-up" data-aos-delay="300" class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>👤</div> <h4 class="font-semibold text-yellow-400 text-sm" data-astro-cid-j7pv25f6>Facebook</h4> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>Connect</p> </a> <a href="https://www.instagram.com/wesleyfuentesbibon/" target="_blank" data-aos="fade-up" data-aos-delay="350" class="p-4 rounded-xl bg-black/60 backdrop-blur-xl gold-border text-center hover:scale-105 transition-all hover:shadow-lg hover:shadow-yellow-500/20" data-astro-cid-j7pv25f6> <div class="text-3xl mb-2 hover:scale-110 transition-transform" data-astro-cid-j7pv25f6>📷</div> <h4 class="font-semibold text-yellow-400 text-sm" data-astro-cid-j7pv25f6>Instagram</h4> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>@wesleyfuentesbibon</p> </a> </div> <!-- CONTACT FORM --> <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" class="p-8 rounded-3xl bg-black/60 backdrop-blur-xl gold-border hover-lift" data-astro-cid-j7pv25f6> <h3 class="text-xl font-bold gold-text mb-6 text-center" data-astro-cid-j7pv25f6>Send Me a Message</h3> <!-- Add id to form and remove action/method --> <form id="contact-form" class="space-y-4 stagger-children" data-astro-cid-j7pv25f6> <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-astro-cid-j7pv25f6> <input type="text" name="user_name" id="user_name" placeholder="Your Name" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" data-astro-cid-j7pv25f6> <input type="email" name="user_email" id="user_email" placeholder="Your Email" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" data-astro-cid-j7pv25f6> </div> <input type="text" name="subject" id="subject" placeholder="Subject" class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" data-astro-cid-j7pv25f6> <textarea name="message" id="message" rows="4" placeholder="Your Message" required class="w-full px-4 py-3 bg-black/40 border border-yellow-500/30 rounded-xl text-gray-200 focus:outline-none focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 transition-all" data-astro-cid-j7pv25f6></textarea> <!-- Status message area --> <div id="form-status" class="text-center hidden" data-astro-cid-j7pv25f6></div> <button type="submit" id="submit-btn" class="w-full py-4 gold-gradient text-black font-bold rounded-xl hover:scale-105 transition-transform shadow-lg hover:shadow-yellow-500/30" data-astro-cid-j7pv25f6>
+Send Message
+</button> </form> </div> </div> </section>  <footer class="py-8 border-t border-yellow-500/20" data-astro-cid-j7pv25f6> <div class="container mx-auto px-4 max-w-7xl" data-astro-cid-j7pv25f6> <div class="flex flex-col md:flex-row justify-between items-center gap-4" data-astro-cid-j7pv25f6> <div class="text-center md:text-left" data-astro-cid-j7pv25f6> <p class="text-gray-400 text-sm" data-astro-cid-j7pv25f6>© 2026 Wesley Fuentes Bibon. All rights reserved.</p> <p class="text-gray-500 text-xs mt-1" data-astro-cid-j7pv25f6>Laguna University • BSIT Business Analytics • Class of 2025-2026</p> <p class="text-yellow-400/60 text-xs mt-2 italic" data-astro-cid-j7pv25f6>"Building the future, one line of code at a time"</p> </div> <div class="flex gap-4" data-astro-cid-j7pv25f6> <a href="mailto:wesleyfuentes2k22@gmail.com" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110" data-astro-cid-j7pv25f6>Email</a> <a href="https://www.linkedin.com/in/bibon-wesley-f-b76b8a29b/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110" data-astro-cid-j7pv25f6>LinkedIn</a> <a href="https://github.com/wisel-ctrl" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110" data-astro-cid-j7pv25f6>GitHub</a> <a href="https://www.facebook.com/wesley10022002" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110" data-astro-cid-j7pv25f6>Facebook</a> <a href="https://www.instagram.com/wesleyfuentesbibon/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition-colors text-sm hover:scale-110" data-astro-cid-j7pv25f6>Instagram</a> </div> </div> </div> </footer>  </main> <!-- AOS Animation Script --> <script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_0_lang.G79CKpN_.js"></script> <script>
+      // Initialize AOS with proper settings
+      function initAOS() {
+        if (typeof AOS !== 'undefined') {
+          if (window.aosInstance) {
+            window.aosInstance.destroy();
           }
-        });
+          
+          window.aosInstance = AOS.init({
+            duration: 1000,
+            once: true,
+            mirror: false,
+            offset: 100,
+            delay: 0,
+            easing: 'ease-out-cubic',
+            disable: false,
+            startEvent: 'DOMContentLoaded',
+            initClassName: 'aos-init',
+            animatedClassName: 'aos-animate',
+            useClassNames: false,
+            throttleDelay: 99,
+            debounceDelay: 50
+          });
+          
+          setTimeout(() => {
+            AOS.refresh();
+          }, 100);
+        }
+      }
+      
+      // Initial AOS setup
+      document.addEventListener('DOMContentLoaded', function() {
+        initAOS();
       });
       
-      // also for desktop nav smooth scroll
+      // Handle navigation clicks for smooth scrolling and animation reset
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
           if (href && href.startsWith('#')) {
             e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const targetId = href;
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+              // Update active state
+              document.querySelectorAll('.nav-link').forEach(navLink => {
+                navLink.classList.remove('text-yellow-400');
+                navLink.classList.add('text-gray-300');
+              });
+              this.classList.remove('text-gray-300');
+              this.classList.add('text-yellow-400');
+              
+              // Smooth scroll
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+              
+              // Reset and re-trigger animations after scroll
+              setTimeout(() => {
+                const aosElements = targetElement.querySelectorAll('[data-aos]');
+                aosElements.forEach(el => {
+                  el.classList.remove('aos-animate');
+                  // Force reflow
+                  void el.offsetHeight;
+                });
+                
+                setTimeout(() => {
+                  aosElements.forEach((el, index) => {
+                    setTimeout(() => {
+                      el.classList.add('aos-animate');
+                    }, index * 50);
+                  });
+                  if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                  }
+                }, 50);
+              }, 500);
+            }
           }
         });
       });
       
-      // EmailJS logic re-integrated
-      emailjs.init('CAzdRDLw2qg5wObQg');
-      const form = document.getElementById('contact-form');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const btn = document.getElementById('submit-btn');
-          const statusDiv = document.getElementById('form-status');
-          const originalText = btn.textContent;
-          btn.disabled = true;
-          btn.textContent = 'Sending...';
-          statusDiv.classList.add('hidden');
-          
-          const templateParams = {
-            user_name: document.getElementById('user_name').value,
-            user_email: document.getElementById('user_email').value,
-            subject: document.getElementById('subject').value || 'Portfolio Message',
-            message: document.getElementById('message').value,
-            to_email: 'wesleyfuentes2k22@gmail.com'
-          };
-          
-          emailjs.send('service_qjxecht', 'template_9x090fh', templateParams)
-            .then(() => {
-              statusDiv.textContent = '✅ Message sent successfully! I\'ll reply soon.';
-              statusDiv.className = 'text-green-400 text-sm mt-2 text-center';
-              form.reset();
-              btn.disabled = false;
-              btn.textContent = originalText;
-              setTimeout(() => statusDiv.classList.add('hidden'), 5000);
-            })
-            .catch((err) => {
-              console.error(err);
-              statusDiv.textContent = '❌ Failed to send. Email me directly: wesleyfuentes2k22@gmail.com';
-              statusDiv.className = 'text-red-400 text-sm mt-2 text-center';
-              btn.disabled = false;
-              btn.textContent = originalText;
-            });
+      // Intersection Observer for re-triggering animations
+      if (typeof IntersectionObserver !== 'undefined') {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const aosElements = entry.target.querySelectorAll('[data-aos]');
+              aosElements.forEach(el => {
+                if (!el.classList.contains('aos-animate')) {
+                  el.classList.add('aos-animate');
+                }
+              });
+              if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+              }
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        });
+        
+        window.addEventListener('load', function() {
+          const sections = document.querySelectorAll('section');
+          sections.forEach(section => {
+            observer.observe(section);
+          });
         });
       }
-      // stagger intersection observer
+      
+      // Update active nav link on scroll
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+          const sections = document.querySelectorAll('section');
+          let currentSection = '';
+          
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= (sectionTop - 200)) {
+              currentSection = section.getAttribute('id');
+            }
+          });
+          
+          if (currentSection) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+              const href = link.getAttribute('href');
+              if (href === `#${currentSection}`) {
+                link.classList.add('text-yellow-400');
+                link.classList.remove('text-gray-300');
+              } else {
+                link.classList.remove('text-yellow-400');
+                link.classList.add('text-gray-300');
+              }
+            });
+          }
+          
+          if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+          }
+        }, 100);
+      });
+    </script>  <!-- Fallback for AOS issues --> <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const elements = document.querySelectorAll('[data-aos]');
+          if (elements.length > 0 && !document.querySelector('.aos-animate')) {
+            elements.forEach(function(el) {
+              el.classList.add('aos-init', 'aos-animate');
+            });
+          }
+        }, 1000);
+      });
+
+      // Observer for stagger-children animations
       const staggerObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('animate-children');
+          if (entry.isIntersecting) {
+            // Add class to trigger stagger animation
+            entry.target.classList.add('animate-children');
+            
+            // Optional: unobserve after triggering once
+            staggerObserver.unobserve(entry.target);
+          }
         });
-      }, { threshold: 0.3 });
-      document.querySelectorAll('.stagger-children').forEach(el => staggerObserver.observe(el));
-    })();
-  </script>
-</body>
-</html>
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Observe all stagger-children elements
+      document.querySelectorAll('.stagger-children').forEach(el => {
+        staggerObserver.observe(el);
+      });
+    </script> <!-- EmailJS Script --> <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script> <script>
+      // Initialize EmailJS
+      (function() {
+        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init('CAzdRDLw2qg5wObQg');
+      })();
+      
+      // Contact form handler
+      document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contact-form');
+        
+        if (contactForm) {
+          contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const statusDiv = document.getElementById('form-status');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            statusDiv.classList.add('hidden');
+            
+            // Prepare template parameters
+            const templateParams = {
+              user_name: document.getElementById('user_name').value,
+              user_email: document.getElementById('user_email').value,
+              subject: document.getElementById('subject').value || 'No Subject',
+              message: document.getElementById('message').value,
+              to_email: 'wesleyfuentes2k22@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            // Replace with your actual Service ID and Template ID
+            emailjs.send('service_qjxecht', 'template_9x090fh', templateParams)
+              .then(function(response) {
+                // Success
+                statusDiv.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
+                statusDiv.className = 'text-green-400 text-sm mt-2';
+                contactForm.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                  statusDiv.classList.add('hidden');
+                }, 5000);
+              }, function(error) {
+                // Error
+                console.error('EmailJS Error:', error);
+                statusDiv.textContent = '❌ Failed to send message. Please try again or email me directly.';
+                statusDiv.className = 'text-red-400 text-sm mt-2';
+                
+                // Reset button
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+              });
+          });
+        }
+      });
+    </script> </body> </html> 
