@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import UnoCSS from 'unocss/astro';
+import vercel from '@astrojs/vercel/static'; // Add this line
 
 export default defineConfig({
   integrations: [
@@ -12,13 +13,13 @@ export default defineConfig({
       injectReset: true
     })
   ],
-  output: 'static',
-  site: 'https://your-portfolio.com',
+  output: 'static', // 'static' works perfectly with Vercel
+  adapter: vercel(), // Add this line
+  site: 'https://your-portfolio.com', // Update this to your actual domain later
   server: {
     host: '0.0.0.0',
     port: 4321
   },
-  // Add this to ensure proper script handling
   vite: {
     ssr: {
       noExternal: ['aos']
