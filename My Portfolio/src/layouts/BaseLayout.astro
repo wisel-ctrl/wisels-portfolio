@@ -1,6 +1,5 @@
 ---
-import '../../uno.config.ts';
-import MobileMenu from '../components/MobileMenu.astro';
+import '../../uno.config.ts'; 
 
 export interface Props {
   title: string;
@@ -27,11 +26,13 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   </head>
   <body class="bg-black text-gray-200 font-sans antialiased">
+    <!-- Navigation Bar -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-yellow-500/20 transition-all duration-500">
       <div class="container mx-auto px-4 py-4 max-w-7xl">
         <div class="flex items-center justify-between">
           <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">My Portfolio</a>
           
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center gap-8">
             <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a>
             <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a>
@@ -43,17 +44,102 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
             </a>
           </div>
           
-          <MobileMenu />
+          <!-- Hamburger Menu Button -->
+          <button id="hamburger-btn" class="md:hidden text-yellow-400 text-3xl hover:scale-110 transition-transform duration-300 focus:outline-none z-[100] relative">
+            ☰
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[200] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex flex-col items-center justify-center min-h-screen space-y-8 p-8">
+          <button id="close-menu" class="absolute top-6 right-6 text-yellow-400 text-4xl hover:scale-110 transition-transform focus:outline-none">
+            ✕
+          </button>
+          
+          <a href="#home" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Home</a>
+          <a href="#about" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">About</a>
+          <a href="#skills" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Skills</a>
+          <a href="#projects" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Projects</a>
+          <a href="#contact" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Contact</a>
+          <a href="/sample-cv.pdf" download class="px-8 py-4 bg-yellow-500/10 border-2 border-yellow-500/30 rounded-xl text-yellow-400 text-xl font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300 mt-4">
+            Download Resume
+          </a>
         </div>
       </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="pt-20">
       <slot />
     </main>
 
+    <!-- AOS Animation Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script is:inline>
+      // Hamburger Menu Functionality
+      function initMobileMenu() {
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        if (!hamburgerBtn || !mobileMenu) {
+          console.error('Mobile menu elements not found!');
+          return;
+        }
+        
+        function openMenu() {
+          mobileMenu.classList.remove('translate-x-full');
+          mobileMenu.classList.add('translate-x-0');
+          document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMenu() {
+          mobileMenu.classList.remove('translate-x-0');
+          mobileMenu.classList.add('translate-x-full');
+          document.body.style.overflow = '';
+        }
+        
+        hamburgerBtn.addEventListener('click', openMenu);
+        
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closeMenu);
+        }
+        
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              e.preventDefault();
+              const targetElement = document.querySelector(href);
+              if (targetElement) {
+                closeMenu();
+                setTimeout(() => {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+              }
+            } else {
+              closeMenu();
+            }
+          });
+        });
+        
+        mobileMenu.addEventListener('click', (e) => {
+          if (e.target === mobileMenu) {
+            closeMenu();
+          }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.classList.contains('translate-x-0')) {
+            closeMenu();
+          }
+        });
+      }
+      
+      // Initialize AOS with proper settings
       function initAOS() {
         if (typeof AOS !== 'undefined') {
           if (window.aosInstance) {
@@ -82,11 +168,14 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
+      // Initial setup
       document.addEventListener('DOMContentLoaded', function() {
+        initMobileMenu();
         initAOS();
       });
       
-      document.querySelectorAll('.nav-link').forEach(link => {
+      // Handle navigation clicks for smooth scrolling and animation reset
+      document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
           if (href && href.startsWith('#')) {
@@ -130,6 +219,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         });
       });
       
+      // Intersection Observer for re-triggering animations
       if (typeof IntersectionObserver !== 'undefined') {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
@@ -158,6 +248,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         });
       }
       
+      // Update active nav link on scroll
       let scrollTimeout;
       window.addEventListener('scroll', function() {
         clearTimeout(scrollTimeout);
@@ -194,12 +285,14 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
     </script>
     
     <style is:global>
+      /* Load fonts */
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
       
       * {
         scroll-behavior: smooth;
       }
       
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 10px;
       }
@@ -218,6 +311,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         background: linear-gradient(180deg, #F5D547, #D4AF37);
       }
       
+      /* Gold styles */
       .gold-gradient {
         background: linear-gradient(135deg, #F5D547 0%, #D4AF37 50%, #B8960C 100%);
         transition: all 0.3s ease;
@@ -239,6 +333,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         border-color: rgba(212, 175, 55, 0.6);
       }
       
+      /* Section title */
       .section-title {
         font-size: 2.5rem;
         font-weight: 700;
@@ -264,6 +359,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         transform: scaleX(1);
       }
       
+      /* AOS base styles - critical for animations to work */
       [data-aos] {
         opacity: 0;
         transition-property: opacity, transform;
@@ -277,6 +373,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         pointer-events: auto;
       }
       
+      /* Individual AOS animation styles */
       [data-aos="fade-up"] {
         transform: translateY(40px);
       }
@@ -309,6 +406,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         transform: perspective(2500px) rotateY(0);
       }
       
+      /* Stagger children animations */
       .stagger-children > * {
         opacity: 0;
         transform: translateY(30px);
@@ -328,6 +426,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       .stagger-children > *:nth-child(5) { transition-delay: 0.25s; }
       .stagger-children > *:nth-child(6) { transition-delay: 0.3s; }
       
+      /* Hover lift effect */
       .hover-lift {
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -337,6 +436,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
       }
       
+      /* Typing animation */
       .typing-text {
         overflow: hidden;
         border-right: 2px solid #D4AF37;
@@ -362,6 +462,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
+      /* Pulse animation */
       .animate-pulse {
         animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
@@ -377,6 +478,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
+      /* Bounce animation */
       .animate-bounce {
         animation: bounce 2s ease-in-out infinite;
       }
@@ -392,6 +494,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
+      /* Spin animation */
       .animate-spin {
         animation: spin 20s linear infinite;
       }
@@ -405,6 +508,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
+      /* HTML and body styles */
       html {
         scroll-padding-top: 80px;
       }
@@ -417,6 +521,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         font-family: 'JetBrains Mono', monospace;
       }
       
+      /* Mobile menu improvements */
       @media (max-width: 768px) {
         #mobile-menu {
           backdrop-filter: blur(20px);
@@ -424,6 +529,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       }
     </style>
     
+    <!-- Fallback for AOS issues -->
     <script is:inline>
       window.addEventListener('load', function() {
         setTimeout(function() {
@@ -436,6 +542,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }, 1000);
       });
 
+      // Observer for stagger-children animations
       const staggerObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -453,8 +560,8 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       });
     </script>
     
+    <!-- EmailJS Script -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
     <script is:inline>
       (function() {
         emailjs.init('CAzdRDLw2qg5wObQg');
@@ -505,6 +612,5 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       });
     </script>
-    
   </body>
 </html>
