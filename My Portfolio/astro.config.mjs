@@ -15,7 +15,7 @@ export default defineConfig({
   ],
   output: 'static',
   adapter: vercel(),  // This stays the same
-  site: 'https://your-portfolio.com',
+  site: 'https://wisels-portfolio.vercel.app/',
   server: {
     host: '0.0.0.0',
     port: 4321
