@@ -31,6 +31,8 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       <div class="container mx-auto px-4 py-4 max-w-7xl">
         <div class="flex items-center justify-between">
           <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">My Portfolio</a>
+          
+          <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center gap-8">
             <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a>
             <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a>
@@ -41,7 +43,29 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
               Resume
             </a>
           </div>
-          <button class="md:hidden text-yellow-400 text-2xl hover:scale-110 transition-transform duration-300">☰</button>
+          
+          <!-- Hamburger Menu Button -->
+          <button id="hamburger-btn" class="md:hidden text-yellow-400 text-3xl hover:scale-110 transition-transform duration-300 focus:outline-none z-[100] relative">
+            ☰
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[200] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex flex-col items-center justify-center min-h-screen space-y-8 p-8">
+          <button id="close-menu" class="absolute top-6 right-6 text-yellow-400 text-4xl hover:scale-110 transition-transform focus:outline-none">
+            ✕
+          </button>
+          
+          <a href="#home" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Home</a>
+          <a href="#about" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">About</a>
+          <a href="#skills" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Skills</a>
+          <a href="#projects" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Projects</a>
+          <a href="#contact" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Contact</a>
+          <a href="/sample-cv.pdf" download class="px-8 py-4 bg-yellow-500/10 border-2 border-yellow-500/30 rounded-xl text-yellow-400 text-xl font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300 mt-4">
+            Download Resume
+          </a>
         </div>
       </div>
     </nav>
@@ -54,6 +78,67 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
     <!-- AOS Animation Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script is:inline>
+      // Hamburger Menu Functionality
+      function initMobileMenu() {
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        if (!hamburgerBtn || !mobileMenu) {
+          console.error('Mobile menu elements not found!');
+          return;
+        }
+        
+        function openMenu() {
+          mobileMenu.classList.remove('translate-x-full');
+          mobileMenu.classList.add('translate-x-0');
+          document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMenu() {
+          mobileMenu.classList.remove('translate-x-0');
+          mobileMenu.classList.add('translate-x-full');
+          document.body.style.overflow = '';
+        }
+        
+        hamburgerBtn.addEventListener('click', openMenu);
+        
+        if (closeBtn) {
+          closeBtn.addEventListener('click', closeMenu);
+        }
+        
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+              e.preventDefault();
+              const targetElement = document.querySelector(href);
+              if (targetElement) {
+                closeMenu();
+                setTimeout(() => {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+              }
+            } else {
+              closeMenu();
+            }
+          });
+        });
+        
+        mobileMenu.addEventListener('click', (e) => {
+          if (e.target === mobileMenu) {
+            closeMenu();
+          }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && mobileMenu.classList.contains('translate-x-0')) {
+            closeMenu();
+          }
+        });
+      }
+      
       // Initialize AOS with proper settings
       function initAOS() {
         if (typeof AOS !== 'undefined') {
@@ -83,13 +168,14 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
-      // Initial AOS setup
+      // Initial setup
       document.addEventListener('DOMContentLoaded', function() {
+        initMobileMenu();
         initAOS();
       });
       
       // Handle navigation clicks for smooth scrolling and animation reset
-      document.querySelectorAll('.nav-link').forEach(link => {
+      document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
           if (href && href.startsWith('#')) {
@@ -98,7 +184,6 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-              // Update active state
               document.querySelectorAll('.nav-link').forEach(navLink => {
                 navLink.classList.remove('text-yellow-400');
                 navLink.classList.add('text-gray-300');
@@ -106,18 +191,15 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
               this.classList.remove('text-gray-300');
               this.classList.add('text-yellow-400');
               
-              // Smooth scroll
               targetElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
               });
               
-              // Reset and re-trigger animations after scroll
               setTimeout(() => {
                 const aosElements = targetElement.querySelectorAll('[data-aos]');
                 aosElements.forEach(el => {
                   el.classList.remove('aos-animate');
-                  // Force reflow
                   void el.offsetHeight;
                 });
                 
@@ -438,6 +520,13 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       .font-mono {
         font-family: 'JetBrains Mono', monospace;
       }
+      
+      /* Mobile menu improvements */
+      @media (max-width: 768px) {
+        #mobile-menu {
+          backdrop-filter: blur(20px);
+        }
+      }
     </style>
     
     <!-- Fallback for AOS issues -->
@@ -457,10 +546,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       const staggerObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add class to trigger stagger animation
             entry.target.classList.add('animate-children');
-            
-            // Optional: unobserve after triggering once
             staggerObserver.unobserve(entry.target);
           }
         });
@@ -469,22 +555,18 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         rootMargin: '0px 0px -50px 0px'
       });
       
-      // Observe all stagger-children elements
       document.querySelectorAll('.stagger-children').forEach(el => {
         staggerObserver.observe(el);
       });
     </script>
+    
     <!-- EmailJS Script -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
     <script is:inline>
-      // Initialize EmailJS
       (function() {
-        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
         emailjs.init('CAzdRDLw2qg5wObQg');
       })();
       
-      // Contact form handler
       document.addEventListener('DOMContentLoaded', function() {
         const contactForm = document.getElementById('contact-form');
         
@@ -496,12 +578,10 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
             const statusDiv = document.getElementById('form-status');
             const originalBtnText = submitBtn.textContent;
             
-            // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             statusDiv.classList.add('hidden');
             
-            // Prepare template parameters
             const templateParams = {
               user_name: document.getElementById('user_name').value,
               user_email: document.getElementById('user_email').value,
@@ -510,30 +590,21 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
               to_email: 'wesleyfuentes2k22@gmail.com'
             };
             
-            // Send email using EmailJS
-            // Replace with your actual Service ID and Template ID
             emailjs.send('service_qjxecht', 'template_9x090fh', templateParams)
               .then(function(response) {
-                // Success
                 statusDiv.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
                 statusDiv.className = 'text-green-400 text-sm mt-2';
                 contactForm.reset();
-                
-                // Reset button
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
                 
-                // Hide success message after 5 seconds
                 setTimeout(() => {
                   statusDiv.classList.add('hidden');
                 }, 5000);
               }, function(error) {
-                // Error
                 console.error('EmailJS Error:', error);
                 statusDiv.textContent = '❌ Failed to send message. Please try again or email me directly.';
                 statusDiv.className = 'text-red-400 text-sm mt-2';
-                
-                // Reset button
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
               });
@@ -541,6 +612,5 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       });
     </script>
-    
   </body>
 </html>
