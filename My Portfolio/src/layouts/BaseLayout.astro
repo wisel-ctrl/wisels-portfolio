@@ -80,66 +80,112 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
     <script is:inline>
       // Hamburger Menu Functionality
       function initMobileMenu() {
+        console.log('Mobile menu initializing...');
+        
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const closeBtn = document.getElementById('close-menu');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        if (!hamburgerBtn) {
+          console.error('Hamburger button not found!');
+          return;
+        }
+        
+        if (!mobileMenu) {
+          console.error('Mobile menu not found!');
+          return;
+        }
+        
+        console.log('Found both elements:', hamburgerBtn, mobileMenu);
+        
+        // Remove any existing listeners by cloning and replacing
+        const newBtn = hamburgerBtn.cloneNode(true);
+        hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
+        
+        // Use the new button
+        const finalBtn = document.getElementById('hamburger-btn');
         
         function openMenu() {
+          console.log('Opening menu...');
+          mobileMenu.style.transform = 'translateX(0)';
           mobileMenu.classList.remove('translate-x-full');
           mobileMenu.classList.add('translate-x-0');
           document.body.style.overflow = 'hidden';
         }
         
         function closeMenu() {
+          console.log('Closing menu...');
+          mobileMenu.style.transform = 'translateX(100%)';
           mobileMenu.classList.remove('translate-x-0');
           mobileMenu.classList.add('translate-x-full');
           document.body.style.overflow = '';
         }
         
-        if (hamburgerBtn) {
-          hamburgerBtn.addEventListener('click', openMenu);
-        }
+        // Direct click handler
+        finalBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Hamburger clicked!');
+          openMenu();
+        };
         
         if (closeBtn) {
-          closeBtn.addEventListener('click', closeMenu);
+          closeBtn.onclick = function(e) {
+            e.preventDefault();
+            closeMenu();
+          };
         }
         
-        // Close menu when clicking on a link
-        mobileNavLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
+        // Close when clicking links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.onclick = function(e) {
             e.preventDefault();
-            const href = link.getAttribute('href');
-            const targetElement = document.querySelector(href);
-            
-            if (targetElement) {
+            const href = this.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
               closeMenu();
-              
-              // Smooth scroll after menu closes
               setTimeout(() => {
-                targetElement.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+                target.scrollIntoView({ behavior: 'smooth' });
               }, 300);
             }
-          });
+          };
         });
         
-        // Close menu when clicking outside (on backdrop)
-        mobileMenu.addEventListener('click', (e) => {
-          if (e.target === mobileMenu) {
-            closeMenu();
-          }
-        });
-        
-        // Close menu on escape key
+        // Close on escape
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && mobileMenu.classList.contains('translate-x-0')) {
             closeMenu();
           }
         });
       }
+
+      function testMobileMenu() {
+        console.log('Testing mobile menu...');
+        const btn = document.getElementById('hamburger-btn');
+        const menu = document.getElementById('mobile-menu');
+        console.log('Button found:', btn);
+        console.log('Menu found:', menu);
+        
+        if (btn && menu) {
+          console.log('Both elements exist!');
+          // Force a test click handler
+          btn.onclick = function() {
+            console.log('Button clicked!');
+            menu.classList.toggle('translate-x-full');
+            menu.classList.toggle('translate-x-0');
+            console.log('Menu classes:', menu.className);
+          };
+        } else {
+          console.error('Could not find menu elements!');
+        }
+      }
+      
+      // Call this right after DOMContentLoaded
+      document.addEventListener('DOMContentLoaded', function() {
+        testMobileMenu(); // Add this line
+        initAOS();
+        initMobileMenu();
+      });
       
       // Initialize AOS with proper settings
       function initAOS() {
