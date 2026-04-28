@@ -1,7 +1,8 @@
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import UnoCSS from 'unocss/astro';
-import vercel from '@astrojs/vercel/static';  // ← Make sure this line exists
+import vercel from '@astrojs/vercel';  // ← Remove /static from this line
 
 export default defineConfig({
   integrations: [
@@ -13,7 +14,7 @@ export default defineConfig({
     })
   ],
   output: 'static',
-  adapter: vercel(),  // ← And this line
+  adapter: vercel(),  // This stays the same
   site: 'https://your-portfolio.com',
   server: {
     host: '0.0.0.0',
