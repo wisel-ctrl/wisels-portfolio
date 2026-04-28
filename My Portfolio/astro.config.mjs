@@ -1,8 +1,7 @@
-// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import UnoCSS from 'unocss/astro';
-import vercel from '@astrojs/vercel/static'; // Add this line
+import vercel from '@astrojs/vercel/static';  // ← Make sure this line exists
 
 export default defineConfig({
   integrations: [
@@ -13,9 +12,9 @@ export default defineConfig({
       injectReset: true
     })
   ],
-  output: 'static', // 'static' works perfectly with Vercel
-  adapter: vercel(), // Add this line
-  site: 'https://your-portfolio.com', // Update this to your actual domain later
+  output: 'static',
+  adapter: vercel(),  // ← And this line
+  site: 'https://your-portfolio.com',
   server: {
     host: '0.0.0.0',
     port: 4321
