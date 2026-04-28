@@ -31,8 +31,6 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       <div class="container mx-auto px-4 py-4 max-w-7xl">
         <div class="flex items-center justify-between">
           <a href="#home" class="text-2xl font-bold gold-text font-mono hover:scale-105 transition-transform duration-300">My Portfolio</a>
-          
-          <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center gap-8">
             <a href="#home" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">Home</a>
             <a href="#about" class="nav-link text-sm font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 hover:scale-105">About</a>
@@ -43,29 +41,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
               Resume
             </a>
           </div>
-          
-          <!-- Hamburger Menu Button -->
-          <button id="hamburger-btn" class="md:hidden text-yellow-400 text-3xl hover:scale-110 transition-transform duration-300 focus:outline-none z-[100] relative">
-            ☰
-          </button>
-        </div>
-      </div>
-      
-      <!-- Mobile Menu Panel -->
-      <div id="mobile-menu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-[200] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
-        <div class="flex flex-col items-center justify-center min-h-screen space-y-8 p-8">
-          <button id="close-menu" class="absolute top-6 right-6 text-yellow-400 text-4xl hover:scale-110 transition-transform focus:outline-none">
-            ✕
-          </button>
-          
-          <a href="#home" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Home</a>
-          <a href="#about" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">About</a>
-          <a href="#skills" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Skills</a>
-          <a href="#projects" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Projects</a>
-          <a href="#contact" class="mobile-nav-link text-2xl font-medium text-gray-300 hover:text-yellow-400 transition-all duration-300 py-3">Contact</a>
-          <a href="/sample-cv.pdf" download class="px-8 py-4 bg-yellow-500/10 border-2 border-yellow-500/30 rounded-xl text-yellow-400 text-xl font-medium hover:bg-yellow-500/20 hover:scale-105 transition-all duration-300 mt-4">
-            Download Resume
-          </a>
+          <button class="md:hidden text-yellow-400 text-2xl hover:scale-110 transition-transform duration-300">☰</button>
         </div>
       </div>
     </nav>
@@ -78,115 +54,6 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
     <!-- AOS Animation Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script is:inline>
-      // Hamburger Menu Functionality
-      function initMobileMenu() {
-        console.log('Mobile menu initializing...');
-        
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeBtn = document.getElementById('close-menu');
-        
-        if (!hamburgerBtn) {
-          console.error('Hamburger button not found!');
-          return;
-        }
-        
-        if (!mobileMenu) {
-          console.error('Mobile menu not found!');
-          return;
-        }
-        
-        console.log('Found both elements:', hamburgerBtn, mobileMenu);
-        
-        // Remove any existing listeners by cloning and replacing
-        const newBtn = hamburgerBtn.cloneNode(true);
-        hamburgerBtn.parentNode.replaceChild(newBtn, hamburgerBtn);
-        
-        // Use the new button
-        const finalBtn = document.getElementById('hamburger-btn');
-        
-        function openMenu() {
-          console.log('Opening menu...');
-          mobileMenu.style.transform = 'translateX(0)';
-          mobileMenu.classList.remove('translate-x-full');
-          mobileMenu.classList.add('translate-x-0');
-          document.body.style.overflow = 'hidden';
-        }
-        
-        function closeMenu() {
-          console.log('Closing menu...');
-          mobileMenu.style.transform = 'translateX(100%)';
-          mobileMenu.classList.remove('translate-x-0');
-          mobileMenu.classList.add('translate-x-full');
-          document.body.style.overflow = '';
-        }
-        
-        // Direct click handler
-        finalBtn.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('Hamburger clicked!');
-          openMenu();
-        };
-        
-        if (closeBtn) {
-          closeBtn.onclick = function(e) {
-            e.preventDefault();
-            closeMenu();
-          };
-        }
-        
-        // Close when clicking links
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-          link.onclick = function(e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            const target = document.querySelector(href);
-            if (target) {
-              closeMenu();
-              setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth' });
-              }, 300);
-            }
-          };
-        });
-        
-        // Close on escape
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && mobileMenu.classList.contains('translate-x-0')) {
-            closeMenu();
-          }
-        });
-      }
-
-      function testMobileMenu() {
-        console.log('Testing mobile menu...');
-        const btn = document.getElementById('hamburger-btn');
-        const menu = document.getElementById('mobile-menu');
-        console.log('Button found:', btn);
-        console.log('Menu found:', menu);
-        
-        if (btn && menu) {
-          console.log('Both elements exist!');
-          // Force a test click handler
-          btn.onclick = function() {
-            console.log('Button clicked!');
-            menu.classList.toggle('translate-x-full');
-            menu.classList.toggle('translate-x-0');
-            console.log('Menu classes:', menu.className);
-          };
-        } else {
-          console.error('Could not find menu elements!');
-        }
-      }
-      
-      // Call this right after DOMContentLoaded
-      document.addEventListener('DOMContentLoaded', function() {
-        testMobileMenu(); // Add this line
-        initAOS();
-        initMobileMenu();
-      });
-      
       // Initialize AOS with proper settings
       function initAOS() {
         if (typeof AOS !== 'undefined') {
@@ -216,14 +83,13 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
         }
       }
       
-      // Initial setup
+      // Initial AOS setup
       document.addEventListener('DOMContentLoaded', function() {
         initAOS();
-        initMobileMenu();
       });
       
       // Handle navigation clicks for smooth scrolling and animation reset
-      document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+      document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
           const href = this.getAttribute('href');
           if (href && href.startsWith('#')) {
@@ -232,7 +98,7 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-              // Update active state for desktop nav
+              // Update active state
               document.querySelectorAll('.nav-link').forEach(navLink => {
                 navLink.classList.remove('text-yellow-400');
                 navLink.classList.add('text-gray-300');
@@ -571,13 +437,6 @@ const { title, description = 'Wesley Fuentes Bibon | BSIT Business Analytics Gra
       
       .font-mono {
         font-family: 'JetBrains Mono', monospace;
-      }
-      
-      /* Mobile menu improvements */
-      @media (max-width: 768px) {
-        #mobile-menu {
-          backdrop-filter: blur(20px);
-        }
       }
     </style>
     
